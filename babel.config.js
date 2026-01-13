@@ -1,6 +1,8 @@
 module.exports = {
   presets: ['module:@react-native/babel-preset'],
   plugins: [
+    'react-native-reanimated/plugin',
+    'nativewind/babel',
     [
       'module-resolver',
       {
@@ -17,17 +19,25 @@ module.exports = {
           '.json',
         ],
         alias: {
-          '@': './src',
-          '@components': './src/components',
-          '@screens': './src/screens',
-          '@store': './src/store',
-          '@utils': './src/utils',
+          '@adapters': './src/adapters',
+          '@api': './src/api',
           '@assets': './src/assets',
+          '@components': './src/components',
+          '@config': './src/config',
+          '@constants': './src/constants',
+          '@dto': './src/dto',
+          '@hooks': './src/hooks',
+          '@navigation': './src/navigation',
+          '@repositories': './src/repositories',
+          '@screens': './src/screens',
+          '@services': './src/services',
+          '@store': './src/store',
+          '@theme': './src/theme',
           '@types': './src/types',
+          '@utils': './src/utils',
+          '@validations': './src/validations',
         },
       },
     ],
-    'react-native-reanimated/plugin',
-    'nativewind/babel',
   ],
 };

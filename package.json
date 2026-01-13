@@ -6,9 +6,20 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
     "start": "react-native start",
     "test": "jest",
-    "prepare": "husky"
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "type-check": "tsc --noEmit",
+    "prepare": "husky",
+    "postinstall": "patch-package",
+    "clean": "cd android && ./gradlew clean && cd ../ios && pod deintegrate && pod install",
+    "clean:cache": "watchman watch-del-all && rm -rf $TMPDIR/react-* && rm -rf node_modules && npm install",
+    "pod:install": "cd ios && bundle install && bundle exec pod install",
+    "build:android:release": "cd android && ./gradlew assembleRelease",
+    "build:ios:release": "cd ios && bundle exec fastlane build_release"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -20,17 +31,29 @@
     ]
   },
   "dependencies": {
+    "@d11/react-native-fast-image": "^8.13.0",
     "@react-native-async-storage/async-storage": "^2.2.0",
+    "@react-native-community/netinfo": "^11.4.1",
     "@react-native/new-app-screen": "0.83.1",
+    "@react-navigation/bottom-tabs": "^7.9.1",
     "@react-navigation/elements": "^2.9.4",
     "@react-navigation/native": "^7.1.26",
     "@react-navigation/native-stack": "^7.9.1",
     "@react-navigation/stack": "^7.6.13",
     "@reduxjs/toolkit": "^2.11.2",
     "axios": "^1.13.2",
+    "date-fns": "^4.1.0",
     "nativewind": "^4.2.1",
     "react": "19.2.3",
+    "react-i18next": "^16.5.2",
     "react-native": "0.83.1",
+    "react-native-config": "^1.6.1",
+    "react-native-device-info": "^15.0.1",
+    "react-native-encrypted-storage": "^4.0.3",
+    "react-native-gesture-handler": "^2.30.0",
+    "react-native-keyboard-aware-scroll-view": "^0.9.5",
+    "react-native-mmkv": "^4.1.1",
+    "react-native-nitro-modules": "^0.33.0",
     "react-native-reanimated": "^4.2.1",
     "react-native-safe-area-context": "^5.5.2",
     "react-native-screens": "^4.19.0",
@@ -39,7 +62,8 @@
     "react-redux": "^9.2.0",
     "redux-persist": "^6.0.0",
     "styled-components": "^6.2.0",
-    "tailwindcss-react-native": "^1.7.10"
+    "tailwindcss-react-native": "^1.7.10",
+    "zod": "^4.3.5"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
