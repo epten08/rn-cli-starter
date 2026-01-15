@@ -9,7 +9,7 @@
     "isolatedModules": true,
     "strict": true,
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
@@ -25,6 +25,7 @@
       "@constants/*": ["constants/*"],
       "@dto/*": ["dto/*"],
       "@hooks/*": ["hooks/*"],
+      "@i18n/*": ["i18n/*"],
       "@navigation/*": ["navigation/*"],
       "@repositories/*": ["repositories/*"],
       "@screens/*": ["screens/*"],
@@ -37,7 +38,13 @@
     },
     "types": ["jest", "@testing-library/jest-native"]
   },
-  "include": ["src/**/*", "index.js", "App.tsx", "__tests__/**/*"],
+  "include": [
+    "src/**/*",
+    "index.js",
+    "App.tsx",
+    "__tests__/**/*",
+    "nativewind-env.d.ts"
+  ],
   "exclude": [
     "node_modules",
     "babel.config.js",

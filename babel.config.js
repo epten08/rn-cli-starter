@@ -1,7 +1,7 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 module.exports = {
   presets: ['module:@react-native/babel-preset'],
   plugins: [
-    'react-native-reanimated/plugin',
     'nativewind/babel',
     [
       'module-resolver',
@@ -27,6 +27,7 @@ module.exports = {
           '@constants': './src/constants',
           '@dto': './src/dto',
           '@hooks': './src/hooks',
+          '@i18n': './src/i18n',
           '@navigation': './src/navigation',
           '@repositories': './src/repositories',
           '@screens': './src/screens',
@@ -39,5 +40,6 @@ module.exports = {
         },
       },
     ],
+    'react-native-reanimated/plugin',
   ],
 };

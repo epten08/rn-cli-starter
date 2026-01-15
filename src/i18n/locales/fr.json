@@ -1,0 +1,218 @@
+{
+  "common": {
+    "appName": "Démarrage React Native",
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "success": "Succès",
+    "ok": "OK",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "submit": "Soumettre",
+    "search": "Rechercher",
+    "filter": "Filtrer",
+    "retry": "Réessayer",
+    "back": "Retour",
+    "next": "Suivant",
+    "done": "Terminé",
+    "yes": "Oui",
+    "no": "Non"
+  },
+  "auth": {
+    "login": {
+      "title": "Bon Retour",
+      "subtitle": "Connectez-vous pour continuer",
+      "email": "Email",
+      "emailPlaceholder": "Entrez votre email",
+      "password": "Mot de Passe",
+      "passwordPlaceholder": "Entrez votre mot de passe",
+      "forgotPassword": "Mot de Passe Oublié?",
+      "signIn": "Se Connecter",
+      "signInWith": "Ou connectez-vous avec",
+      "noAccount": "Pas de compte?",
+      "signUp": "S'inscrire",
+      "success": "Connexion réussie!",
+      "error": "Échec de la connexion. Vérifiez vos identifiants."
+    },
+    "register": {
+      "title": "Créer un Compte",
+      "subtitle": "Inscrivez-vous pour commencer",
+      "firstName": "Prénom",
+      "firstNamePlaceholder": "Entrez votre prénom",
+      "lastName": "Nom",
+      "lastNamePlaceholder": "Entrez votre nom",
+      "email": "Email",
+      "emailPlaceholder": "Entrez votre email",
+      "phone": "Numéro de Téléphone",
+      "phonePlaceholder": "Entrez votre numéro de téléphone",
+      "password": "Mot de Passe",
+      "passwordPlaceholder": "Entrez votre mot de passe",
+      "confirmPassword": "Confirmer le Mot de Passe",
+      "confirmPasswordPlaceholder": "Confirmez votre mot de passe",
+      "acceptTerms": "J'accepte les Termes et Conditions",
+      "signUp": "S'inscrire",
+      "haveAccount": "Vous avez déjà un compte?",
+      "signIn": "Se Connecter",
+      "success": "Inscription réussie!",
+      "error": "Échec de l'inscription. Veuillez réessayer."
+    },
+    "forgotPassword": {
+      "title": "Mot de Passe Oublié",
+      "subtitle": "Entrez votre email pour réinitialiser votre mot de passe",
+      "email": "Email",
+      "emailPlaceholder": "Entrez votre email",
+      "submit": "Envoyer le Lien",
+      "backToLogin": "Retour à la Connexion",
+      "success": "Lien de réinitialisation envoyé à votre email!",
+      "error": "Échec de l'envoi du lien. Réessayez."
+    },
+    "resetPassword": {
+      "title": "Réinitialiser le Mot de Passe",
+      "subtitle": "Entrez votre nouveau mot de passe",
+      "password": "Nouveau Mot de Passe",
+      "passwordPlaceholder": "Entrez le nouveau mot de passe",
+      "confirmPassword": "Confirmer le Mot de Passe",
+      "confirmPasswordPlaceholder": "Confirmez le nouveau mot de passe",
+      "submit": "Réinitialiser le Mot de Passe",
+      "success": "Mot de passe réinitialisé avec succès!",
+      "error": "Échec de la réinitialisation. Réessayez."
+    },
+    "logout": {
+      "title": "Déconnexion",
+      "message": "Êtes-vous sûr de vouloir vous déconnecter?",
+      "confirm": "Se Déconnecter",
+      "cancel": "Annuler",
+      "success": "Déconnexion réussie!"
+    }
+  },
+  "home": {
+    "title": "Accueil",
+    "welcomeBack": "Bon retour!",
+    "quickActions": "Actions Rapides",
+    "stats": "Vos Statistiques",
+    "profile": "Profil",
+    "profileDesc": "Voir votre profil",
+    "settings": "Paramètres",
+    "settingsDesc": "Gérer les préférences",
+    "emailVerified": "Email Vérifié",
+    "emailNotVerified": "Email Non Vérifié",
+    "memberSince": "Membre Depuis",
+    "verified": "Vérifié",
+    "notVerified": "Non vérifié"
+  },
+  "profile": {
+    "title": "Profil",
+    "edit": "Modifier le Profil",
+    "personalInfo": "Informations Personnelles",
+    "accountInfo": "Informations du Compte",
+    "firstName": "Prénom",
+    "lastName": "Nom",
+    "email": "Email",
+    "phone": "Numéro de Téléphone",
+    "dateOfBirth": "Date de Naissance",
+    "gender": "Genre",
+    "male": "Homme",
+    "female": "Femme",
+    "other": "Autre",
+    "address": "Adresse",
+    "street": "Rue",
+    "city": "Ville",
+    "state": "État",
+    "country": "Pays",
+    "postalCode": "Code Postal",
+    "changePassword": "Changer le Mot de Passe",
+    "currentPassword": "Mot de Passe Actuel",
+    "newPassword": "Nouveau Mot de Passe",
+    "confirmPassword": "Confirmer le Mot de Passe",
+    "updateSuccess": "Profil mis à jour avec succès!",
+    "updateError": "Échec de la mise à jour du profil.",
+    "passwordChangeSuccess": "Mot de passe changé avec succès!",
+    "passwordChangeError": "Échec du changement de mot de passe."
+  },
+  "settings": {
+    "title": "Paramètres",
+    "preferences": "Préférences",
+    "language": "Langue",
+    "theme": "Thème",
+    "light": "Clair",
+    "dark": "Sombre",
+    "system": "Système",
+    "notifications": "Notifications",
+    "enableNotifications": "Activer les Notifications",
+    "account": "Compte",
+    "editProfile": "Modifier le Profil",
+    "changePassword": "Changer le Mot de Passe",
+    "privacy": "Confidentialité et Sécurité",
+    "about": "À Propos",
+    "version": "Version",
+    "termsOfService": "Conditions d'Utilisation",
+    "privacyPolicy": "Politique de Confidentialité",
+    "helpSupport": "Aide et Support",
+    "contactUs": "Contactez-Nous",
+    "logout": "Se Déconnecter",
+    "deleteAccount": "Supprimer le Compte",
+    "deleteAccountWarning": "Cette action ne peut pas être annulée.",
+    "confirmDelete": "Êtes-vous sûr de vouloir supprimer votre compte?"
+  },
+  "explore": {
+    "title": "Explorer",
+    "search": "Rechercher...",
+    "categories": "Catégories",
+    "trending": "Tendances",
+    "recommended": "Recommandé pour vous"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "markAllRead": "Tout marquer comme lu",
+    "noNotifications": "Aucune notification",
+    "today": "Aujourd'hui",
+    "yesterday": "Hier",
+    "earlier": "Plus tôt"
+  },
+  "account": {
+    "title": "Compte",
+    "profile": "Profil",
+    "settings": "Paramètres",
+    "help": "Aide et Support",
+    "about": "À Propos"
+  },
+  "errors": {
+    "required": "Ce champ est requis",
+    "invalidEmail": "Veuillez entrer un email valide",
+    "invalidPhone": "Veuillez entrer un téléphone valide",
+    "passwordTooShort": "Le mot de passe doit contenir au moins 8 caractères",
+    "passwordMismatch": "Les mots de passe ne correspondent pas",
+    "weakPassword": "Le mot de passe doit contenir majuscules, minuscules, chiffres et caractères spéciaux",
+    "networkError": "Erreur réseau. Vérifiez votre connexion.",
+    "serverError": "Erreur serveur. Réessayez plus tard.",
+    "unauthorized": "Session expirée. Reconnectez-vous.",
+    "notFound": "La ressource demandée n'a pas été trouvée.",
+    "unknown": "Une erreur inattendue s'est produite."
+  },
+  "validation": {
+    "email": {
+      "required": "L'email est requis",
+      "invalid": "Veuillez entrer un email valide"
+    },
+    "password": {
+      "required": "Le mot de passe est requis",
+      "minLength": "Le mot de passe doit contenir au moins {{count}} caractères",
+      "uppercase": "Le mot de passe doit contenir au moins une majuscule",
+      "lowercase": "Le mot de passe doit contenir au moins une minuscule",
+      "number": "Le mot de passe doit contenir au moins un chiffre",
+      "special": "Le mot de passe doit contenir au moins un caractère spécial"
+    },
+    "name": {
+      "required": "Le nom est requis",
+      "minLength": "Le nom doit contenir au moins {{count}} caractères",
+      "maxLength": "Le nom doit contenir moins de {{count}} caractères"
+    },
+    "phone": {
+      "invalid": "Veuillez entrer un numéro de téléphone valide"
+    },
+    "terms": {
+      "required": "Vous devez accepter les termes et conditions"
+    }
+  }
+}

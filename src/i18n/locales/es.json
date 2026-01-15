@@ -1,0 +1,218 @@
+{
+  "common": {
+    "appName": "Iniciador de React Native",
+    "loading": "Cargando...",
+    "error": "Error",
+    "success": "Éxito",
+    "ok": "OK",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "submit": "Enviar",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "retry": "Reintentar",
+    "back": "Atrás",
+    "next": "Siguiente",
+    "done": "Hecho",
+    "yes": "Sí",
+    "no": "No"
+  },
+  "auth": {
+    "login": {
+      "title": "Bienvenido de Nuevo",
+      "subtitle": "Inicia sesión para continuar",
+      "email": "Correo Electrónico",
+      "emailPlaceholder": "Ingresa tu correo electrónico",
+      "password": "Contraseña",
+      "passwordPlaceholder": "Ingresa tu contraseña",
+      "forgotPassword": "¿Olvidaste tu Contraseña?",
+      "signIn": "Iniciar Sesión",
+      "signInWith": "O inicia sesión con",
+      "noAccount": "¿No tienes una cuenta?",
+      "signUp": "Registrarse",
+      "success": "¡Inicio de sesión exitoso!",
+      "error": "Error al iniciar sesión. Verifica tus credenciales."
+    },
+    "register": {
+      "title": "Crear Cuenta",
+      "subtitle": "Regístrate para comenzar",
+      "firstName": "Nombre",
+      "firstNamePlaceholder": "Ingresa tu nombre",
+      "lastName": "Apellido",
+      "lastNamePlaceholder": "Ingresa tu apellido",
+      "email": "Correo Electrónico",
+      "emailPlaceholder": "Ingresa tu correo electrónico",
+      "phone": "Número de Teléfono",
+      "phonePlaceholder": "Ingresa tu número de teléfono",
+      "password": "Contraseña",
+      "passwordPlaceholder": "Ingresa tu contraseña",
+      "confirmPassword": "Confirmar Contraseña",
+      "confirmPasswordPlaceholder": "Confirma tu contraseña",
+      "acceptTerms": "Acepto los Términos y Condiciones",
+      "signUp": "Registrarse",
+      "haveAccount": "¿Ya tienes una cuenta?",
+      "signIn": "Iniciar Sesión",
+      "success": "¡Registro exitoso!",
+      "error": "Error al registrarse. Por favor intenta de nuevo."
+    },
+    "forgotPassword": {
+      "title": "Olvidé mi Contraseña",
+      "subtitle": "Ingresa tu correo para restablecer tu contraseña",
+      "email": "Correo Electrónico",
+      "emailPlaceholder": "Ingresa tu correo electrónico",
+      "submit": "Enviar Enlace",
+      "backToLogin": "Volver al Inicio",
+      "success": "¡Enlace de restablecimiento enviado a tu correo!",
+      "error": "Error al enviar el enlace. Intenta de nuevo."
+    },
+    "resetPassword": {
+      "title": "Restablecer Contraseña",
+      "subtitle": "Ingresa tu nueva contraseña",
+      "password": "Nueva Contraseña",
+      "passwordPlaceholder": "Ingresa la nueva contraseña",
+      "confirmPassword": "Confirmar Contraseña",
+      "confirmPasswordPlaceholder": "Confirma la nueva contraseña",
+      "submit": "Restablecer Contraseña",
+      "success": "¡Contraseña restablecida exitosamente!",
+      "error": "Error al restablecer contraseña. Intenta de nuevo."
+    },
+    "logout": {
+      "title": "Cerrar Sesión",
+      "message": "¿Estás seguro de que quieres cerrar sesión?",
+      "confirm": "Cerrar Sesión",
+      "cancel": "Cancelar",
+      "success": "¡Sesión cerrada exitosamente!"
+    }
+  },
+  "home": {
+    "title": "Inicio",
+    "welcomeBack": "¡Bienvenido de nuevo!",
+    "quickActions": "Acciones Rápidas",
+    "stats": "Tus Estadísticas",
+    "profile": "Perfil",
+    "profileDesc": "Ver tu perfil",
+    "settings": "Configuración",
+    "settingsDesc": "Administrar preferencias",
+    "emailVerified": "Correo Verificado",
+    "emailNotVerified": "Correo No Verificado",
+    "memberSince": "Miembro Desde",
+    "verified": "Verificado",
+    "notVerified": "No verificado"
+  },
+  "profile": {
+    "title": "Perfil",
+    "edit": "Editar Perfil",
+    "personalInfo": "Información Personal",
+    "accountInfo": "Información de Cuenta",
+    "firstName": "Nombre",
+    "lastName": "Apellido",
+    "email": "Correo Electrónico",
+    "phone": "Número de Teléfono",
+    "dateOfBirth": "Fecha de Nacimiento",
+    "gender": "Género",
+    "male": "Masculino",
+    "female": "Femenino",
+    "other": "Otro",
+    "address": "Dirección",
+    "street": "Calle",
+    "city": "Ciudad",
+    "state": "Estado",
+    "country": "País",
+    "postalCode": "Código Postal",
+    "changePassword": "Cambiar Contraseña",
+    "currentPassword": "Contraseña Actual",
+    "newPassword": "Nueva Contraseña",
+    "confirmPassword": "Confirmar Contraseña",
+    "updateSuccess": "¡Perfil actualizado exitosamente!",
+    "updateError": "Error al actualizar perfil.",
+    "passwordChangeSuccess": "¡Contraseña cambiada exitosamente!",
+    "passwordChangeError": "Error al cambiar contraseña."
+  },
+  "settings": {
+    "title": "Configuración",
+    "preferences": "Preferencias",
+    "language": "Idioma",
+    "theme": "Tema",
+    "light": "Claro",
+    "dark": "Oscuro",
+    "system": "Sistema",
+    "notifications": "Notificaciones",
+    "enableNotifications": "Habilitar Notificaciones",
+    "account": "Cuenta",
+    "editProfile": "Editar Perfil",
+    "changePassword": "Cambiar Contraseña",
+    "privacy": "Privacidad y Seguridad",
+    "about": "Acerca de",
+    "version": "Versión",
+    "termsOfService": "Términos de Servicio",
+    "privacyPolicy": "Política de Privacidad",
+    "helpSupport": "Ayuda y Soporte",
+    "contactUs": "Contáctanos",
+    "logout": "Cerrar Sesión",
+    "deleteAccount": "Eliminar Cuenta",
+    "deleteAccountWarning": "Esta acción no se puede deshacer.",
+    "confirmDelete": "¿Estás seguro de que quieres eliminar tu cuenta?"
+  },
+  "explore": {
+    "title": "Explorar",
+    "search": "Buscar...",
+    "categories": "Categorías",
+    "trending": "Tendencias",
+    "recommended": "Recomendado para ti"
+  },
+  "notifications": {
+    "title": "Notificaciones",
+    "markAllRead": "Marcar todo como leído",
+    "noNotifications": "Sin notificaciones",
+    "today": "Hoy",
+    "yesterday": "Ayer",
+    "earlier": "Anteriores"
+  },
+  "account": {
+    "title": "Cuenta",
+    "profile": "Perfil",
+    "settings": "Configuración",
+    "help": "Ayuda y Soporte",
+    "about": "Acerca de"
+  },
+  "errors": {
+    "required": "Este campo es requerido",
+    "invalidEmail": "Por favor ingresa un correo válido",
+    "invalidPhone": "Por favor ingresa un teléfono válido",
+    "passwordTooShort": "La contraseña debe tener al menos 8 caracteres",
+    "passwordMismatch": "Las contraseñas no coinciden",
+    "weakPassword": "La contraseña debe contener mayúsculas, minúsculas, números y caracteres especiales",
+    "networkError": "Error de red. Verifica tu conexión.",
+    "serverError": "Error del servidor. Intenta más tarde.",
+    "unauthorized": "Sesión expirada. Inicia sesión de nuevo.",
+    "notFound": "El recurso solicitado no fue encontrado.",
+    "unknown": "Ocurrió un error inesperado."
+  },
+  "validation": {
+    "email": {
+      "required": "El correo es requerido",
+      "invalid": "Por favor ingresa un correo válido"
+    },
+    "password": {
+      "required": "La contraseña es requerida",
+      "minLength": "La contraseña debe tener al menos {{count}} caracteres",
+      "uppercase": "La contraseña debe contener al menos una mayúscula",
+      "lowercase": "La contraseña debe contener al menos una minúscula",
+      "number": "La contraseña debe contener al menos un número",
+      "special": "La contraseña debe contener al menos un carácter especial"
+    },
+    "name": {
+      "required": "El nombre es requerido",
+      "minLength": "El nombre debe tener al menos {{count}} caracteres",
+      "maxLength": "El nombre debe tener menos de {{count}} caracteres"
+    },
+    "phone": {
+      "invalid": "Por favor ingresa un número de teléfono válido"
+    },
+    "terms": {
+      "required": "Debes aceptar los términos y condiciones"
+    }
+  }
+}

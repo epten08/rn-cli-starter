@@ -1,8 +1,35 @@
 module.exports = {
-  preset: 'react-native',
+  testEnvironment: 'node',
   setupFilesAfterEnv: ['@testing-library/jest-native/extend-expect'],
   transformIgnorePatterns: [
-    'node_modules/(?!(react-native|@react-native|@react-navigation|@react-native-community)/)',
+    'node_modules/(?!(react-native|@react-native|@react-navigation|@react-native-community|@react-native-async-storage|react-redux)/)',
   ],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+  transform: {
+    '^.+\\.(js|jsx|ts|tsx)$': [
+      'babel-jest',
+      { configFile: './babel.config.js' },
+    ],
+  },
+  moduleNameMapper: {
+    '\\.(jpg|jpeg|png|gif|svg)$': '<rootDir>/__mocks__/fileMock.js',
+    '^@adapters/(.*)$': '<rootDir>/src/adapters/$1',
+    '^@api/(.*)$': '<rootDir>/src/api/$1',
+    '^@assets/(.*)$': '<rootDir>/src/assets/$1',
+    '^@components/(.*)$': '<rootDir>/src/components/$1',
+    '^@config/(.*)$': '<rootDir>/src/config/$1',
+    '^@constants/(.*)$': '<rootDir>/src/constants/$1',
+    '^@dto/(.*)$': '<rootDir>/src/dto/$1',
+    '^@hooks/(.*)$': '<rootDir>/src/hooks/$1',
+    '^@i18n/(.*)$': '<rootDir>/src/i18n/$1',
+    '^@navigation/(.*)$': '<rootDir>/src/navigation/$1',
+    '^@repositories/(.*)$': '<rootDir>/src/repositories/$1',
+    '^@screens/(.*)$': '<rootDir>/src/screens/$1',
+    '^@services/(.*)$': '<rootDir>/src/services/$1',
+    '^@store/(.*)$': '<rootDir>/src/store/$1',
+    '^@theme/(.*)$': '<rootDir>/src/theme/$1',
+    '^@types/(.*)$': '<rootDir>/src/types/$1',
+    '^@utils/(.*)$': '<rootDir>/src/utils/$1',
+    '^@validations/(.*)$': '<rootDir>/src/validations/$1',
+  },
 };
