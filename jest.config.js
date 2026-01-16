@@ -1,17 +1,41 @@
 module.exports = {
   testEnvironment: 'node',
-  setupFilesAfterEnv: ['@testing-library/jest-native/extend-expect'],
+  setupFiles: ['<rootDir>/jest.setup.js'],
+  setupFilesAfterEnv: [],
+  testPathIgnorePatterns: [
+    '/node_modules/',
+    'babel.config.test.js',
+    'babel.config.js',
+  ],
   transformIgnorePatterns: [
-    'node_modules/(?!(react-native|@react-native|@react-navigation|@react-native-community|@react-native-async-storage|react-redux)/)',
+    'node_modules/(?!((jest-)?react-native|@react-native(-community)?|@react-navigation|react-redux)/)',
   ],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   transform: {
     '^.+\\.(js|jsx|ts|tsx)$': [
       'babel-jest',
-      { configFile: './babel.config.js' },
+      { configFile: './babel.config.test.js' },
     ],
   },
   moduleNameMapper: {
+    '^react-native$': '<rootDir>/__mocks__/react-native.js',
+    '^react-native-gesture-handler$':
+      '<rootDir>/__mocks__/react-native-gesture-handler.js',
+    '^react-native-safe-area-context$':
+      '<rootDir>/__mocks__/react-native-safe-area-context.js',
+    '^react-native-config$': '<rootDir>/__mocks__/react-native-config.js',
+    '^react-native-vector-icons/(.*)$':
+      '<rootDir>/__mocks__/react-native-vector-icons.js',
+    '^react-native-encrypted-storage$':
+      '<rootDir>/__mocks__/react-native-encrypted-storage.js',
+    '^@react-native-async-storage/async-storage$':
+      '<rootDir>/__mocks__/async-storage.js',
+    '^@react-navigation/stack$':
+      '<rootDir>/__mocks__/@react-navigation/stack.js',
+    '^@react-navigation/bottom-tabs$':
+      '<rootDir>/__mocks__/@react-navigation/bottom-tabs.js',
+    '^@react-navigation/native$':
+      '<rootDir>/__mocks__/@react-navigation/native.js',
     '\\.(jpg|jpeg|png|gif|svg)$': '<rootDir>/__mocks__/fileMock.js',
     '^@adapters/(.*)$': '<rootDir>/src/adapters/$1',
     '^@api/(.*)$': '<rootDir>/src/api/$1',

@@ -1,6 +1,10 @@
 {
   "permissions": {
-    "allow": ["Bash(dir:*)", "Bash(npm ls:*)"],
+    "allow": [
+      "Bash(dir:*)",
+      "Bash(npm ls:*)",
+      "Bash(npm test)"
+    ],
     "deny": [],
     "ask": []
   }

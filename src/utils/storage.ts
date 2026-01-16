@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Logger } from '@utils/logger';
 import EncryptedStorage from 'react-native-encrypted-storage';
-import { Logger } from 'utils/logger';
 
 class StorageService {
   //set item in asyncstorage
