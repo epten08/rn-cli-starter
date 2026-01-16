@@ -1,7 +1,14 @@
 import { useAuth } from '@hooks/useAuth';
 import { useTranslation } from '@hooks/useTranslation';
 import React from 'react';
-import { View, Text, TouchableOpacity, ScrollView, Alert } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  ScrollView,
+  Alert,
+  StyleSheet,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import type { HomeScreenProps } from '../../types/navigation.types';
@@ -30,21 +37,17 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
   };
 
   return (
-    <ScrollView className="flex-1 bg-gray-50">
+    <ScrollView style={styles.container}>
       {/* Header */}
-      <View className="bg-primary-600 pt-12 pb-6 px-6">
-        <View className="flex-row justify-between items-center mb-4">
+      <View style={styles.header}>
+        <View style={styles.headerContent}>
           <View>
-            <Text className="text-white text-2xl font-bold">
-              {t('home.welcomeBack')}
-            </Text>
-            <Text className="text-primary-100 text-sm mt-1">
-              {user?.fullName || user?.email}
-            </Text>
+            <Text style={styles.welcomeText}>{t('home.welcomeBack')}</Text>
+            <Text style={styles.userText}>{user?.fullName || user?.email}</Text>
           </View>
           <TouchableOpacity
             onPress={() => navigation.navigate('Profile', {})}
-            className="bg-white/20 rounded-full p-2"
+            style={styles.profileButton}
           >
             <Icon name="person-outline" size={24} color="#FFFFFF" />
           </TouchableOpacity>
@@ -52,58 +55,46 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
       </View>
 
       {/* Content */}
-      <View className="px-6 py-6">
+      <View style={styles.content}>
         {/* Quick Actions */}
-        <View className="mb-6">
-          <Text className="text-lg font-bold text-gray-900 mb-4">
-            {t('home.quickActions')}
-          </Text>
-          <View className="flex-row flex-wrap gap-4">
-            <TouchableOpacity className="bg-white rounded-xl p-4 flex-1 min-w-[150px] shadow-sm">
-              <View className="bg-primary-100 w-12 h-12 rounded-full items-center justify-center mb-3">
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>{t('home.quickActions')}</Text>
+          <View style={styles.actionsRow}>
+            <TouchableOpacity style={styles.actionCard}>
+              <View style={[styles.iconCircle, styles.primaryIconBg]}>
                 <Icon name="person-outline" size={24} color="#0ea5e9" />
               </View>
-              <Text className="text-gray-900 font-semibold mb-1">
-                {t('home.profile')}
-              </Text>
-              <Text className="text-gray-500 text-xs">
-                {t('home.profileDesc')}
-              </Text>
+              <Text style={styles.actionTitle}>{t('home.profile')}</Text>
+              <Text style={styles.actionDesc}>{t('home.profileDesc')}</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
               onPress={() => navigation.navigate('Settings')}
-              className="bg-white rounded-xl p-4 flex-1 min-w-[150px] shadow-sm"
+              style={styles.actionCard}
             >
-              <View className="bg-purple-100 w-12 h-12 rounded-full items-center justify-center mb-3">
+              <View style={[styles.iconCircle, styles.purpleIconBg]}>
                 <Icon name="settings-outline" size={24} color="#a855f7" />
               </View>
-              <Text className="text-gray-900 font-semibold mb-1">
-                {t('home.settings')}
-              </Text>
-              <Text className="text-gray-500 text-xs">
-                {t('home.settingsDesc')}
-              </Text>
+              <Text style={styles.actionTitle}>{t('home.settings')}</Text>
+              <Text style={styles.actionDesc}>{t('home.settingsDesc')}</Text>
             </TouchableOpacity>
           </View>
         </View>
 
         {/* Stats Cards */}
-        <View className="mb-6">
-          <Text className="text-lg font-bold text-gray-900 mb-4">
-            {t('home.stats')}
-          </Text>
-          <View className="bg-white rounded-xl p-4 shadow-sm mb-3">
-            <View className="flex-row items-center justify-between">
-              <View className="flex-row items-center">
-                <View className="bg-green-100 w-10 h-10 rounded-full items-center justify-center mr-3">
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>{t('home.stats')}</Text>
+          <View style={styles.statCard}>
+            <View style={styles.statRow}>
+              <View style={styles.statLeft}>
+                <View style={[styles.statIconCircle, styles.greenIconBg]}>
                   <Icon name="checkmark-circle" size={20} color="#10b981" />
                 </View>
                 <View>
-                  <Text className="text-gray-900 font-semibold">
+                  <Text style={styles.statTitle}>
                     {t('home.emailVerified')}
                   </Text>
-                  <Text className="text-gray-500 text-xs">
+                  <Text style={styles.statSubtitle}>
                     {user?.emailVerified
                       ? t('home.verified')
                       : t('home.notVerified')}
@@ -118,17 +109,15 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
             </View>
           </View>
 
-          <View className="bg-white rounded-xl p-4 shadow-sm">
-            <View className="flex-row items-center justify-between">
-              <View className="flex-row items-center">
-                <View className="bg-blue-100 w-10 h-10 rounded-full items-center justify-center mr-3">
+          <View style={styles.statCard}>
+            <View style={styles.statRow}>
+              <View style={styles.statLeft}>
+                <View style={[styles.statIconCircle, styles.blueIconBg]}>
                   <Icon name="calendar-outline" size={20} color="#3b82f6" />
                 </View>
                 <View>
-                  <Text className="text-gray-900 font-semibold">
-                    {t('home.memberSince')}
-                  </Text>
-                  <Text className="text-gray-500 text-xs">
+                  <Text style={styles.statTitle}>{t('home.memberSince')}</Text>
+                  <Text style={styles.statSubtitle}>
                     {user?.createdAt
                       ? new Date(user.createdAt).toLocaleDateString()
                       : 'N/A'}
@@ -140,18 +129,157 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
         </View>
 
         {/* Logout Button */}
-        <TouchableOpacity
-          onPress={handleLogout}
-          className="bg-red-50 border border-red-200 rounded-xl p-4 flex-row items-center justify-center"
-        >
+        <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
           <Icon name="log-out-outline" size={20} color="#ef4444" />
-          <Text className="text-red-600 font-semibold ml-2">
-            {t('auth.logout.title')}
-          </Text>
+          <Text style={styles.logoutText}>{t('auth.logout.title')}</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
   );
 };
+
+const styles = StyleSheet.create({
+  actionCard: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 12,
+    elevation: 1,
+    flex: 1,
+    minWidth: 150,
+    padding: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 2,
+  },
+  actionDesc: {
+    color: '#6b7280',
+    fontSize: 12,
+  },
+  actionTitle: {
+    color: '#111827',
+    fontWeight: '600',
+    marginBottom: 4,
+  },
+  actionsRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 16,
+  },
+  blueIconBg: {
+    backgroundColor: '#dbeafe',
+  },
+  container: {
+    backgroundColor: '#f9fafb',
+    flex: 1,
+  },
+  content: {
+    paddingHorizontal: 24,
+    paddingVertical: 24,
+  },
+  greenIconBg: {
+    backgroundColor: '#d1fae5',
+  },
+  header: {
+    backgroundColor: '#0284c7',
+    paddingBottom: 24,
+    paddingHorizontal: 24,
+    paddingTop: 48,
+  },
+  headerContent: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 16,
+  },
+  iconCircle: {
+    alignItems: 'center',
+    borderRadius: 24,
+    height: 48,
+    justifyContent: 'center',
+    marginBottom: 12,
+    width: 48,
+  },
+  logoutButton: {
+    alignItems: 'center',
+    backgroundColor: '#fef2f2',
+    borderColor: '#fecaca',
+    borderRadius: 12,
+    borderWidth: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    padding: 16,
+  },
+  logoutText: {
+    color: '#dc2626',
+    fontWeight: '600',
+    marginLeft: 8,
+  },
+  primaryIconBg: {
+    backgroundColor: '#e0f2fe',
+  },
+  profileButton: {
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    borderRadius: 20,
+    padding: 8,
+  },
+  purpleIconBg: {
+    backgroundColor: '#f3e8ff',
+  },
+  section: {
+    marginBottom: 24,
+  },
+  sectionTitle: {
+    color: '#111827',
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 16,
+  },
+  statCard: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 12,
+    elevation: 1,
+    marginBottom: 12,
+    padding: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 2,
+  },
+  statIconCircle: {
+    alignItems: 'center',
+    borderRadius: 20,
+    height: 40,
+    justifyContent: 'center',
+    marginRight: 12,
+    width: 40,
+  },
+  statLeft: {
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  statRow: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  statSubtitle: {
+    color: '#6b7280',
+    fontSize: 12,
+  },
+  statTitle: {
+    color: '#111827',
+    fontWeight: '600',
+  },
+  userText: {
+    color: '#bae6fd',
+    fontSize: 14,
+    marginTop: 4,
+  },
+  welcomeText: {
+    color: '#FFFFFF',
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+});
 
 export default HomeScreen;

@@ -8,6 +8,7 @@ import type { StackNavigationProp } from '@react-navigation/stack';
 
 // Root Stack Navigator Params
 export type RootStackParamList = {
+  Onboarding: undefined;
   Auth: NavigatorScreenParams<AuthStackParamList> | undefined;
   Main: NavigatorScreenParams<MainStackParamList> | undefined;
 };

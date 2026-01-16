@@ -9,8 +9,6 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 
-import './global.css';
-
 const App = () => {
   const [isI18nInitialized, setIsI18nInitialized] = useState(false);
 
@@ -18,6 +16,7 @@ const App = () => {
     const initialize = async () => {
       try {
         Logger.info('App: Initializing...');
+        // initialise sentry here
 
         await initI18n();
         setIsI18nInitialized(true);

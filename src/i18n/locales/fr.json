@@ -177,6 +177,27 @@
     "help": "Aide et Support",
     "about": "À Propos"
   },
+  "onboarding": {
+    "slide1": {
+      "title": "Bienvenue dans React Native Starter",
+      "description": "Créez des applications mobiles incroyables avec notre modèle prêt pour la production."
+    },
+    "slide2": {
+      "title": "Architecture Propre",
+      "description": "Suivez les meilleures pratiques avec le modèle services, repositories et adapters."
+    },
+    "slide3": {
+      "title": "Développement Sécurisé",
+      "description": "Support complet TypeScript avec Redux Toolkit et React Navigation."
+    },
+    "slide4": {
+      "title": "Prêt à Démarrer",
+      "description": "Tout est configuré. Commencez simplement à créer vos fonctionnalités incroyables!"
+    },
+    "skip": "Passer",
+    "next": "Suivant",
+    "getStarted": "Commencer"
+  },
   "errors": {
     "required": "Ce champ est requis",
     "invalidEmail": "Veuillez entrer un email valide",

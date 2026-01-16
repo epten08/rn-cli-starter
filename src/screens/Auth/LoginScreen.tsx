@@ -12,6 +12,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  StyleSheet,
 } from 'react-native';
 
 import type { LoginScreenProps } from '../../types/navigation.types';
@@ -50,34 +51,31 @@ const LoginScreen = ({ navigation }: LoginScreenProps) => {
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      className="flex-1"
+      style={styles.flex1}
     >
-      <ScrollView contentContainerClassName="flex-1" className="bg-white">
-        <View className="flex-1 justify-center px-6">
+      <ScrollView
+        contentContainerStyle={styles.flex1}
+        style={styles.scrollView}
+      >
+        <View style={styles.container}>
           {/* Header */}
-          <View className="mb-8">
-            <Text className="text-3xl font-bold text-gray-900 mb-2">
-              {t('auth.login.title')}
-            </Text>
-            <Text className="text-base text-gray-600">
-              {t('auth.login.subtitle')}
-            </Text>
+          <View style={styles.header}>
+            <Text style={styles.title}>{t('auth.login.title')}</Text>
+            <Text style={styles.subtitle}>{t('auth.login.subtitle')}</Text>
           </View>
 
           {/* Error Message */}
           {error && (
-            <View className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
-              <Text className="text-red-800 text-sm">{error}</Text>
+            <View style={styles.errorBox}>
+              <Text style={styles.errorBoxText}>{error}</Text>
             </View>
           )}
 
           {/* Email Input */}
-          <View className="mb-4">
-            <Text className="text-sm font-medium text-gray-700 mb-2">
-              {t('auth.login.email')}
-            </Text>
+          <View style={styles.inputGroup}>
+            <Text style={styles.label}>{t('auth.login.email')}</Text>
             <TextInput
-              className={`border ${errors.email ? 'border-red-500' : 'border-gray-300'} rounded-lg px-4 py-3 text-base`}
+              style={[styles.input, errors.email && styles.inputError]}
               placeholder="Enter your email"
               value={email}
               onChangeText={setEmail}
@@ -86,17 +84,15 @@ const LoginScreen = ({ navigation }: LoginScreenProps) => {
               editable={!isLoading}
             />
             {errors.email && (
-              <Text className="text-red-500 text-xs mt-1">{errors.email}</Text>
+              <Text style={styles.errorText}>{errors.email}</Text>
             )}
           </View>
 
           {/* Password Input */}
-          <View className="mb-6">
-            <Text className="text-sm font-medium text-gray-700 mb-2">
-              {t('auth.login.password')}
-            </Text>
+          <View style={styles.inputGroupLarge}>
+            <Text style={styles.label}>{t('auth.login.password')}</Text>
             <TextInput
-              className={`border ${errors.password ? 'border-red-500' : 'border-gray-300'} rounded-lg px-4 py-3 text-base`}
+              style={[styles.input, errors.password && styles.inputError]}
               placeholder="Enter your password"
               value={password}
               onChangeText={setPassword}
@@ -104,9 +100,7 @@ const LoginScreen = ({ navigation }: LoginScreenProps) => {
               editable={!isLoading}
             />
             {errors.password && (
-              <Text className="text-red-500 text-xs mt-1">
-                {errors.password}
-              </Text>
+              <Text style={styles.errorText}>{errors.password}</Text>
             )}
           </View>
 
@@ -114,9 +108,9 @@ const LoginScreen = ({ navigation }: LoginScreenProps) => {
           <TouchableOpacity
             onPress={() => navigation.navigate('ForgotPassword')}
             disabled={isLoading}
-            className="mb-6"
+            style={styles.forgotPassword}
           >
-            <Text className="text-primary-600 text-sm text-right">
+            <Text style={styles.forgotPasswordText}>
               {t('auth.login.forgotPassword')}
             </Text>
           </TouchableOpacity>
@@ -125,29 +119,27 @@ const LoginScreen = ({ navigation }: LoginScreenProps) => {
           <TouchableOpacity
             onPress={handleLogin}
             disabled={isLoading}
-            className="bg-primary-600 rounded-lg py-4 items-center mb-4"
+            style={styles.loginButton}
           >
             {isLoading ? (
               <ActivityIndicator color="#FFFFFF" />
             ) : (
-              <Text className="text-white text-base font-semibold">
+              <Text style={styles.loginButtonText}>
                 {t('auth.login.signIn')}
               </Text>
             )}
           </TouchableOpacity>
 
           {/* Register Link */}
-          <View className="flex-row justify-center">
-            <Text className="text-gray-600 text-sm">
+          <View style={styles.registerRow}>
+            <Text style={styles.registerText}>
               {t('auth.login.noAccount')}{' '}
             </Text>
             <TouchableOpacity
               onPress={() => navigation.navigate('Register')}
               disabled={isLoading}
             >
-              <Text className="text-primary-600 text-sm font-semibold">
-                {t('auth.login.signUp')}
-              </Text>
+              <Text style={styles.registerLink}>{t('auth.login.signUp')}</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -155,5 +147,105 @@ const LoginScreen = ({ navigation }: LoginScreenProps) => {
     </KeyboardAvoidingView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    paddingHorizontal: 24,
+  },
+  errorBox: {
+    backgroundColor: '#fef2f2',
+    borderColor: '#fecaca',
+    borderRadius: 8,
+    borderWidth: 1,
+    marginBottom: 16,
+    padding: 16,
+  },
+  errorBoxText: {
+    color: '#991b1b',
+    fontSize: 14,
+  },
+  errorText: {
+    color: '#ef4444',
+    fontSize: 12,
+    marginTop: 4,
+  },
+  flex1: {
+    flex: 1,
+  },
+  forgotPassword: {
+    marginBottom: 24,
+  },
+  forgotPasswordText: {
+    color: '#0284c7',
+    fontSize: 14,
+    textAlign: 'right',
+  },
+  header: {
+    marginBottom: 32,
+  },
+  input: {
+    borderColor: '#d1d5db',
+    borderRadius: 8,
+    borderWidth: 1,
+    fontSize: 16,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+  },
+  inputError: {
+    borderColor: '#ef4444',
+  },
+  inputGroup: {
+    marginBottom: 16,
+  },
+  inputGroupLarge: {
+    marginBottom: 24,
+  },
+  label: {
+    color: '#374151',
+    fontSize: 14,
+    fontWeight: '500',
+    marginBottom: 8,
+  },
+  loginButton: {
+    alignItems: 'center',
+    backgroundColor: '#0284c7',
+    borderRadius: 8,
+    marginBottom: 16,
+    paddingVertical: 16,
+  },
+  loginButtonText: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  registerLink: {
+    color: '#0284c7',
+    fontSize: 14,
+    fontWeight: '600',
+  },
+  registerRow: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  registerText: {
+    color: '#4b5563',
+    fontSize: 14,
+  },
+  scrollView: {
+    backgroundColor: '#FFFFFF',
+  },
+  subtitle: {
+    color: '#4b5563',
+    fontSize: 16,
+  },
+  title: {
+    color: '#111827',
+    fontSize: 30,
+    fontWeight: 'bold',
+    marginBottom: 8,
+  },
+});
 
 export default LoginScreen;
