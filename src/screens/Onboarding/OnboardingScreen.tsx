@@ -1,6 +1,8 @@
 import { STORAGE_KEYS } from '@constants/app.constants';
 import type { OnboardingSlide } from '@constants/onboarding.constants';
 import { onboardingSlides } from '@constants/onboarding.constants';
+import { useTypography } from '@constants/typography.constants';
+import { useResponsive } from '@utils/responsive';
 import { storage } from '@utils/storage';
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 import {
@@ -8,14 +10,11 @@ import {
   Text,
   FlatList,
   TouchableOpacity,
-  Dimensions,
   StyleSheet,
   Animated,
   type ViewToken,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-
-const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 interface OnboardingScreenProps {
   onComplete: () => void;
@@ -25,6 +24,10 @@ const OnboardingScreen = ({ onComplete }: OnboardingScreenProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const flatListRef = useRef<FlatList>(null);
   const scrollX = useMemo(() => new Animated.Value(0), []);
+  const { width } = useResponsive();
+  const { FONT_SIZES, SPACING } = useTypography();
+
+  const slideWidth = width;
 
   const handleNext = () => {
     if (currentIndex < onboardingSlides.length - 1) {
@@ -62,14 +65,23 @@ const OnboardingScreen = ({ onComplete }: OnboardingScreenProps) => {
   );
 
   const renderSlide = ({ item }: { item: OnboardingSlide }) => (
-    <View style={[styles.slide, { backgroundColor: item.backgroundColor }]}>
-      <View style={styles.iconContainer}>
-        <Icon name={item.icon} size={120} color="#FFFFFF" />
+    <View
+      style={[
+        styles.slide,
+        { backgroundColor: item.backgroundColor, width: slideWidth },
+      ]}
+    >
+      <View style={{ marginBottom: SPACING.xxl }}>
+        <Icon name={item.icon} size={SPACING.xxl * 2.5} color="#FFFFFF" />
       </View>
 
       <View style={styles.textContainer}>
-        <Text style={styles.title}>{item.title}</Text>
-        <Text style={styles.description}>{item.description}</Text>
+        <Text style={[styles.title, { fontSize: FONT_SIZES.xl * 1.2 }]}>
+          {item.title}
+        </Text>
+        <Text style={[styles.description, { fontSize: FONT_SIZES.md }]}>
+          {item.description}
+        </Text>
       </View>
     </View>
   );
@@ -78,9 +90,9 @@ const OnboardingScreen = ({ onComplete }: OnboardingScreenProps) => {
     () =>
       onboardingSlides.map((_, index) => {
         const inputRange = [
-          (index - 1) * SCREEN_WIDTH,
-          index * SCREEN_WIDTH,
-          (index + 1) * SCREEN_WIDTH,
+          (index - 1) * slideWidth,
+          index * slideWidth,
+          (index + 1) * slideWidth,
         ];
 
         const dotWidth = scrollX.interpolate({
@@ -108,7 +120,7 @@ const OnboardingScreen = ({ onComplete }: OnboardingScreenProps) => {
           />
         );
       }),
-    [scrollX],
+    [scrollX, slideWidth],
   );
 
   return (
@@ -141,7 +153,7 @@ const OnboardingScreen = ({ onComplete }: OnboardingScreenProps) => {
 
             <TouchableOpacity onPress={handleNext} style={styles.nextButton}>
               <Text style={styles.nextText}>Next</Text>
-              <Icon name="arrow-forward" size={20} color="#FFFFFF" />
+              <Icon name="arrow-forward" size={SPACING.lg} color="#FFFFFF" />
             </TouchableOpacity>
           </>
         ) : (
@@ -150,7 +162,7 @@ const OnboardingScreen = ({ onComplete }: OnboardingScreenProps) => {
             style={styles.getStartedButton}
           >
             <Text style={styles.getStartedText}>Get Started</Text>
-            <Icon name="checkmark" size={20} color="#FFFFFF" />
+            <Icon name="checkmark" size={SPACING.lg} color="#FFFFFF" />
           </TouchableOpacity>
         )}
       </View>
@@ -165,7 +177,7 @@ const styles = StyleSheet.create({
   },
   description: {
     color: '#FFFFFF',
-    fontSize: 16,
+
     lineHeight: 24,
     opacity: 0.9,
     textAlign: 'center',
@@ -197,9 +209,6 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 18,
     fontWeight: '700',
-  },
-  iconContainer: {
-    marginBottom: 60,
   },
   nextButton: {
     alignItems: 'center',
@@ -235,7 +244,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     paddingHorizontal: 40,
-    width: SCREEN_WIDTH,
   },
   textContainer: {
     alignItems: 'center',
