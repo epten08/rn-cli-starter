@@ -5,6 +5,7 @@ import { createSlice } from '@reduxjs/toolkit';
 interface AuthState {
   user: UserDTO | null;
   isAuthenticated: boolean;
+  isGuest: boolean;
   isLoading: boolean;
   error: string | null;
 }
@@ -12,6 +13,7 @@ interface AuthState {
 const initialState: AuthState = {
   user: null,
   isAuthenticated: false,
+  isGuest: false,
   isLoading: false,
   error: null,
 };
@@ -30,6 +32,16 @@ const authSlice = createSlice({
       state.isLoading = false;
       state.isAuthenticated = true;
       state.user = action.payload;
+      state.isGuest = false;
+      state.error = null;
+    },
+
+    // login as guest
+    loginAsGuest: state => {
+      state.isLoading = false;
+      state.isAuthenticated = false;
+      state.isGuest = true;
+      state.user = null;
       state.error = null;
     },
 
@@ -65,6 +77,7 @@ const authSlice = createSlice({
     logoutSuccess: state => {
       state.isLoading = false;
       state.isAuthenticated = false;
+      state.isGuest = false;
       state.user = null;
       state.error = null;
     },
@@ -98,6 +111,7 @@ export const {
   loginStart,
   loginSuccess,
   loginFailure,
+  loginAsGuest,
   registerStart,
   registerSuccess,
   registerFailure,

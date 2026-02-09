@@ -16,7 +16,7 @@ import { navigationRef } from './navigationHelpers';
 const Stack = createStackNavigator<RootStackParamList>();
 
 const RootNavigator = () => {
-  const { isAuthenticated } = useAppSelector(state => state.auth);
+  const { isAuthenticated, isGuest } = useAppSelector(state => state.auth);
   const { isOnboardingComplete, isLoading, completeOnboarding } =
     useOnboarding();
 
@@ -41,7 +41,7 @@ const RootNavigator = () => {
             <Stack.Screen name="Onboarding">
               {() => <OnboardingScreen onComplete={completeOnboarding} />}
             </Stack.Screen>
-          ) : !isAuthenticated ? (
+          ) : !isAuthenticated && !isGuest ? (
             <Stack.Screen name="Auth" component={AuthNavigator} />
           ) : (
             <Stack.Screen name="Main" component={MainNavigator} />

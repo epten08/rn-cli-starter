@@ -34,6 +34,7 @@ module.exports = {
     'react-native/no-unused-styles': 'error',
     'react-native/no-inline-styles': 'warn',
     'react-native/no-color-literals': 'off',
+    'react-native/sort-styles': 'off',
     'react-native/split-platform-components': 'warn',
 
     // TypeScript specific rules

@@ -1,3 +1,5 @@
+import { Button } from '@components/ui/Button';
+import { Screen } from '@components/ui/Screen';
 import { useAuth } from '@hooks/useAuth';
 import { useTranslation } from '@hooks/useTranslation';
 import React from 'react';
@@ -5,9 +7,9 @@ import {
   View,
   Text,
   TouchableOpacity,
-  ScrollView,
   Alert,
   StyleSheet,
+  ScrollView,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -15,7 +17,7 @@ import type { HomeScreenProps } from '../../types/navigation.types';
 
 const HomeScreen = ({ navigation }: HomeScreenProps) => {
   const { t } = useTranslation();
-  const { user, logout } = useAuth();
+  const { user, isGuest, logout } = useAuth();
 
   const handleLogout = async () => {
     Alert.alert('Logout', 'Are you sure you want to logout?', [
@@ -37,248 +39,325 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
   };
 
   return (
-    <ScrollView style={styles.container}>
-      {/* Header */}
-      <View style={styles.header}>
+    <Screen safeArea={false} statusBarStyle="light-content">
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={styles.contentContainer}
+      >
+        {/* Header Background */}
+        <View style={styles.headerBackground}>
+          <View style={styles.blob1} />
+          <View style={styles.blob2} />
+        </View>
+
+        {/* Header Content */}
         <View style={styles.headerContent}>
           <View>
-            <Text style={styles.welcomeText}>{t('home.welcomeBack')}</Text>
-            <Text style={styles.userText}>{user?.fullName || user?.email}</Text>
+            <Text style={styles.greetingText}>
+              {isGuest ? 'Hello, Guest' : t('home.welcomeBack')}
+            </Text>
+            <Text style={styles.userText}>
+              {isGuest ? 'Welcome to our app' : user?.fullName || user?.email}
+            </Text>
           </View>
           <TouchableOpacity
             onPress={() => navigation.navigate('Profile', {})}
             style={styles.profileButton}
           >
-            <Icon name="person-outline" size={24} color="#FFFFFF" />
+            {isGuest ? (
+              <Icon name="person-circle-outline" size={40} color="#ffffff" />
+            ) : (
+              <View style={styles.avatarPlaceholder}>
+                <Text style={styles.avatarText}>
+                  {user?.firstName?.charAt(0) || user?.email?.charAt(0) || 'U'}
+                </Text>
+              </View>
+            )}
           </TouchableOpacity>
         </View>
-      </View>
 
-      {/* Content */}
-      <View style={styles.content}>
-        {/* Quick Actions */}
-        <View style={styles.section}>
+        {/* Main Content */}
+        <View style={styles.mainContent}>
+          {/* Quick Stats / Info */}
+          {!isGuest && (
+            <View style={styles.statsContainer}>
+              <View style={styles.statItem}>
+                <Text style={styles.statValue}>
+                  {user?.emailVerified ? 'Verified' : 'Unverified'}
+                </Text>
+                <Text style={styles.statLabel}>Status</Text>
+              </View>
+              <View style={styles.statDivider} />
+              <View style={styles.statItem}>
+                <Text style={styles.statValue}>
+                  {user?.createdAt
+                    ? new Date(user.createdAt).toLocaleDateString(undefined, {
+                        month: 'short',
+                        day: 'numeric',
+                      })
+                    : '-'}
+                </Text>
+                <Text style={styles.statLabel}>Joined</Text>
+              </View>
+            </View>
+          )}
+
+          {/* Quick Actions */}
           <Text style={styles.sectionTitle}>{t('home.quickActions')}</Text>
-          <View style={styles.actionsRow}>
-            <TouchableOpacity style={styles.actionCard}>
-              <View style={[styles.iconCircle, styles.primaryIconBg]}>
-                <Icon name="person-outline" size={24} color="#0ea5e9" />
+          <View style={styles.actionsGrid}>
+            <TouchableOpacity
+              style={styles.actionCard}
+              onPress={() => navigation.navigate('Profile', {})}
+            >
+              <View style={[styles.iconContainer, styles.blueIconBg]}>
+                <Icon name="person" size={24} color="#0ea5e9" />
               </View>
               <Text style={styles.actionTitle}>{t('home.profile')}</Text>
-              <Text style={styles.actionDesc}>{t('home.profileDesc')}</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
-              onPress={() => navigation.navigate('Settings')}
               style={styles.actionCard}
+              onPress={() => navigation.navigate('Settings')}
             >
-              <View style={[styles.iconCircle, styles.purpleIconBg]}>
-                <Icon name="settings-outline" size={24} color="#a855f7" />
+              <View style={[styles.iconContainer, styles.purpleIconBg]}>
+                <Icon name="settings" size={24} color="#a855f7" />
               </View>
               <Text style={styles.actionTitle}>{t('home.settings')}</Text>
-              <Text style={styles.actionDesc}>{t('home.settingsDesc')}</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.actionCard}
+              onPress={() => Alert.alert('Explore', 'Coming soon!')}
+            >
+              <View style={[styles.iconContainer, styles.greenIconBg]}>
+                <Icon name="compass" size={24} color="#10b981" />
+              </View>
+              <Text style={styles.actionTitle}>Explore</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.actionCard}
+              onPress={() => Alert.alert('Support', 'Coming soon!')}
+            >
+              <View style={[styles.iconContainer, styles.orangeIconBg]}>
+                <Icon name="help-circle" size={24} color="#f97316" />
+              </View>
+              <Text style={styles.actionTitle}>Support</Text>
             </TouchableOpacity>
           </View>
-        </View>
 
-        {/* Stats Cards */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>{t('home.stats')}</Text>
-          <View style={styles.statCard}>
-            <View style={styles.statRow}>
-              <View style={styles.statLeft}>
-                <View style={[styles.statIconCircle, styles.greenIconBg]}>
-                  <Icon name="checkmark-circle" size={20} color="#10b981" />
-                </View>
-                <View>
-                  <Text style={styles.statTitle}>
-                    {t('home.emailVerified')}
-                  </Text>
-                  <Text style={styles.statSubtitle}>
-                    {user?.emailVerified
-                      ? t('home.verified')
-                      : t('home.notVerified')}
-                  </Text>
-                </View>
-              </View>
-              <Icon
-                name={user?.emailVerified ? 'checkmark-circle' : 'close-circle'}
-                size={24}
-                color={user?.emailVerified ? '#10b981' : '#ef4444'}
-              />
+          {/* Promo / Banner Area */}
+          <View style={styles.promoCard}>
+            <View>
+              <Text style={styles.promoTitle}>Go Premium</Text>
+              <Text style={styles.promoDesc}>Unlock all features today.</Text>
             </View>
+            <Button
+              title="Upgrade"
+              size="sm"
+              variant="secondary"
+              onPress={() =>
+                Alert.alert('Upgrade', 'Premium features coming soon')
+              }
+              style={styles.upgradeButton}
+            />
           </View>
 
-          <View style={styles.statCard}>
-            <View style={styles.statRow}>
-              <View style={styles.statLeft}>
-                <View style={[styles.statIconCircle, styles.blueIconBg]}>
-                  <Icon name="calendar-outline" size={20} color="#3b82f6" />
-                </View>
-                <View>
-                  <Text style={styles.statTitle}>{t('home.memberSince')}</Text>
-                  <Text style={styles.statSubtitle}>
-                    {user?.createdAt
-                      ? new Date(user.createdAt).toLocaleDateString()
-                      : 'N/A'}
-                  </Text>
-                </View>
-              </View>
-            </View>
+          {/* Logout */}
+          <View style={styles.logoutContainer}>
+            <Button
+              title={t('auth.logout.title')}
+              variant="outline"
+              leftIcon={
+                <Icon name="log-out-outline" size={20} color="#ef4444" />
+              }
+              onPress={handleLogout}
+              textStyle={{ color: '#ef4444' }}
+              style={{ borderColor: '#fee2e2' }}
+            />
           </View>
         </View>
-
-        {/* Logout Button */}
-        <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
-          <Icon name="log-out-outline" size={20} color="#ef4444" />
-          <Text style={styles.logoutText}>{t('auth.logout.title')}</Text>
-        </TouchableOpacity>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </Screen>
   );
 };
 
 const styles = StyleSheet.create({
   actionCard: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 12,
-    elevation: 1,
-    flex: 1,
-    minWidth: 150,
+    backgroundColor: '#ffffff',
+    borderRadius: 16,
     padding: 16,
+    width: '47%', // approx half minus gap
+    alignItems: 'center',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.05,
-    shadowRadius: 2,
-  },
-  actionDesc: {
-    color: '#6b7280',
-    fontSize: 12,
+    shadowRadius: 5,
+    elevation: 2,
   },
   actionTitle: {
-    color: '#111827',
+    color: '#374151',
     fontWeight: '600',
-    marginBottom: 4,
   },
-  actionsRow: {
+  actionsGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: 16,
+    marginBottom: 32,
   },
-  blueIconBg: {
-    backgroundColor: '#dbeafe',
+  avatarPlaceholder: {
+    alignItems: 'center',
+    backgroundColor: '#ffffff',
+    borderRadius: 24,
+    height: 48,
+    justifyContent: 'center',
+    width: 48,
   },
+  avatarText: {
+    color: '#0ea5e9',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  blob1: {
+    position: 'absolute',
+    top: -50,
+    right: -50,
+    width: 200,
+    height: 200,
+    backgroundColor: '#38bdf8', // primary-400
+    borderRadius: 100,
+    opacity: 0.5,
+  },
+  blob2: {
+    position: 'absolute',
+    bottom: -50,
+    left: -20,
+    width: 150,
+    height: 150,
+    backgroundColor: '#0284c7', // primary-600
+    borderRadius: 75,
+    opacity: 0.3,
+  },
+  blueIconBg: { backgroundColor: '#e0f2fe' },
   container: {
     backgroundColor: '#f9fafb',
     flex: 1,
   },
-  content: {
-    paddingHorizontal: 24,
-    paddingVertical: 24,
+  contentContainer: {
+    paddingBottom: 40,
   },
-  greenIconBg: {
-    backgroundColor: '#d1fae5',
+  greenIconBg: { backgroundColor: '#d1fae5' },
+  greetingText: {
+    color: '#bae6fd', // primary-200
+    fontSize: 14,
+    fontWeight: '600',
+    marginBottom: 4,
   },
-  header: {
-    backgroundColor: '#0284c7',
-    paddingBottom: 24,
-    paddingHorizontal: 24,
-    paddingTop: 48,
+  headerBackground: {
+    backgroundColor: '#0ea5e9', // primary-500
+    height: 200,
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 0,
+    overflow: 'hidden',
   },
   headerContent: {
-    alignItems: 'center',
+    paddingTop: 60, // status bar space
+    paddingHorizontal: 24,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 16,
-  },
-  iconCircle: {
     alignItems: 'center',
-    borderRadius: 24,
+    zIndex: 1,
+    marginBottom: 20,
+  },
+  iconContainer: {
+    alignItems: 'center',
+    borderRadius: 12,
     height: 48,
     justifyContent: 'center',
     marginBottom: 12,
     width: 48,
   },
-  logoutButton: {
-    alignItems: 'center',
-    backgroundColor: '#fef2f2',
-    borderColor: '#fecaca',
-    borderRadius: 12,
-    borderWidth: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    padding: 16,
+  logoutContainer: {
+    marginBottom: 40,
   },
-  logoutText: {
-    color: '#dc2626',
-    fontWeight: '600',
-    marginLeft: 8,
+  mainContent: {
+    paddingHorizontal: 24,
+    zIndex: 1,
   },
-  primaryIconBg: {
-    backgroundColor: '#e0f2fe',
-  },
+  orangeIconBg: { backgroundColor: '#ffedd5' },
   profileButton: {
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    padding: 4,
+  },
+  promoCard: {
+    backgroundColor: '#1f2937', // gray-800
     borderRadius: 20,
-    padding: 8,
+    padding: 24,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 32,
   },
-  purpleIconBg: {
-    backgroundColor: '#f3e8ff',
+  promoDesc: {
+    color: '#9ca3af',
+    fontSize: 12,
   },
-  section: {
-    marginBottom: 24,
+  promoTitle: {
+    color: '#ffffff',
+    fontSize: 18,
+    fontWeight: '700',
+    marginBottom: 4,
   },
+  purpleIconBg: { backgroundColor: '#f3e8ff' },
   sectionTitle: {
     color: '#111827',
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: '700',
     marginBottom: 16,
   },
-  statCard: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 12,
-    elevation: 1,
-    marginBottom: 12,
-    padding: 16,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 2,
+  statDivider: {
+    backgroundColor: '#f3f4f6',
+    marginHorizontal: 16,
+    width: 1,
   },
-  statIconCircle: {
+  statItem: {
     alignItems: 'center',
-    borderRadius: 20,
-    height: 40,
-    justifyContent: 'center',
-    marginRight: 12,
-    width: 40,
+    flex: 1,
   },
-  statLeft: {
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
-  statRow: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  statSubtitle: {
+
+  statLabel: {
     color: '#6b7280',
     fontSize: 12,
   },
-  statTitle: {
+  statValue: {
     color: '#111827',
-    fontWeight: '600',
+    fontSize: 16,
+    fontWeight: '700',
+    marginBottom: 4,
+  },
+  statsContainer: {
+    backgroundColor: '#ffffff',
+    borderRadius: 16,
+    elevation: 5,
+    flexDirection: 'row',
+    marginBottom: 32,
+    padding: 20,
+    shadowColor: '#0ea5e9',
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.1,
+    shadowRadius: 20,
+  },
+  upgradeButton: {
+    minWidth: 100,
   },
   userText: {
-    color: '#bae6fd',
-    fontSize: 14,
-    marginTop: 4,
-  },
-  welcomeText: {
-    color: '#FFFFFF',
+    color: '#ffffff',
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: '800',
   },
 });
 

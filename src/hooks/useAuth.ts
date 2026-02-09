@@ -2,6 +2,7 @@ import type { LoginDTO, RegisterDTO } from '@dto/user.dto';
 import { authService } from '@services/auth.service';
 import {
   clearError,
+  loginAsGuest,
   loginFailure,
   loginStart,
   loginSuccess,
@@ -18,7 +19,7 @@ import { useAppDispatch, useAppSelector } from './useRedux';
 
 export const useAuth = () => {
   const dispatch = useAppDispatch();
-  const { user, isAuthenticated, isLoading, error } = useAppSelector(
+  const { user, isAuthenticated, isGuest, isLoading, error } = useAppSelector(
     state => state.auth,
   );
 
@@ -103,6 +104,7 @@ export const useAuth = () => {
   return {
     user,
     isAuthenticated,
+    isGuest,
     isLoading,
     error,
     login,
@@ -111,5 +113,6 @@ export const useAuth = () => {
     forgotPassword,
     resetPassword,
     clearAuthError,
+    loginAsGuest: useCallback(() => dispatch(loginAsGuest()), [dispatch]),
   };
 };

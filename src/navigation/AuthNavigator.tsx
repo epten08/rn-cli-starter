@@ -1,5 +1,5 @@
 import { createStackNavigator } from '@react-navigation/stack';
-import { LoginScreen } from '@screens/Auth';
+import { LoginScreen, SignUpScreen } from '@screens/Auth';
 import React from 'react';
 
 import type { AuthStackParamList } from '../types/navigation.types';
@@ -11,11 +11,12 @@ const AuthNavigator = () => {
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
-        cardStyle: { backgroundColor: '#FFFFFF' },
+        cardStyle: { backgroundColor: '#E0E7FF' },
         gestureEnabled: true,
       }}
     >
       <Stack.Screen name="Login" component={LoginScreen} />
+      <Stack.Screen name="Register" component={SignUpScreen} />
     </Stack.Navigator>
   );
 };
