@@ -1,5 +1,5 @@
 import { createStackNavigator } from '@react-navigation/stack';
-import { LoginScreen, SignUpScreen } from '@screens/Auth';
+import { ForgotPasswordScreen, LoginScreen, SignUpScreen } from '@screens/Auth';
 import React from 'react';
 
 import type { AuthStackParamList } from '../types/navigation.types';
@@ -17,6 +17,7 @@ const AuthNavigator = () => {
     >
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Register" component={SignUpScreen} />
+      <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
     </Stack.Navigator>
   );
 };

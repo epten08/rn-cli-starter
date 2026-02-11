@@ -94,12 +94,7 @@ const LoginScreen = ({ navigation }: LoginScreenProps) => {
               size="sm"
               style={styles.noPadding}
               textStyle={styles.forgotPasswordText}
-              onPress={() =>
-                Alert.alert(
-                  'Coming Soon',
-                  'Forgot Password flow not implemented yet.',
-                )
-              }
+              onPress={() => navigation.navigate('ForgotPassword')}
             />
           </View>
 

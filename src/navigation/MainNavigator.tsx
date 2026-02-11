@@ -1,6 +1,7 @@
+import { useAppSelector } from '@hooks/useRedux';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-import { HomeScreen } from '@screens/Main';
+import { HomeScreen, NotificationsScreen } from '@screens/Main';
 import PlaceholderScreen from '@screens/PlaceholderScreen';
 import React from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -49,6 +50,10 @@ const TabIcon = ({
 
 // bottom tabs navigator
 const MainTabs = () => {
+  const notificationBadge = useAppSelector(
+    state => state.app.notifications.badge,
+  );
+
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -85,10 +90,9 @@ const MainTabs = () => {
       />
       <Tab.Screen
         name="Notifications"
-        component={PlaceholderScreen}
-        // component={NotificationsScreen}
+        component={NotificationsScreen}
         options={{
-          tabBarBadge: 3, // Example badge
+          tabBarBadge: notificationBadge > 0 ? notificationBadge : undefined,
         }}
       />
       <Tab.Screen
