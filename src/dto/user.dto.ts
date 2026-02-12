@@ -20,6 +20,7 @@ export interface UserDTO {
     theme: 'light' | 'dark' | 'system';
     notifications: boolean;
   };
+  deviceId?: string;
   emailVerified: boolean;
   phoneVerified: boolean;
   createdAt: string;
@@ -44,12 +45,14 @@ export interface RegisterDTO {
   firstName: string;
   lastName: string;
   phone?: string;
+  deviceId?: string;
 }
 
 export interface LoginDTO {
   email: string;
   password: string;
   rememberMe?: boolean;
+  deviceId?: string;
 }
 
 export interface UpdateProfileDTO {
@@ -58,6 +61,7 @@ export interface UpdateProfileDTO {
   phone?: string;
   dateOfBirth?: string;
   gender?: 'male' | 'female' | 'other';
+  deviceId?: string;
   address?: {
     street?: string;
     city?: string;

@@ -46,19 +46,10 @@ export class UserRepository {
   }
 
   // upload user avatar
-  async uploadAvatar(imageUri: string): Promise<{ avatar_url: string }> {
-    const formData = new FormData();
-    formData.append('avatar', {
-      uri: imageUri,
-      type: 'image/jpeg',
-      name: 'avatar.jpg',
-    } as any);
-
-    const response = await apiClient.uploadFile<{ avatar_url: string }>(
-      `${API_ENDPOINTS.USER.PROFILE}/avatar`,
-      formData,
+  async uploadAvatar(_imageUri: string): Promise<{ avatar_url: string }> {
+    throw new Error(
+      `This API endpoint is not available on the current Express server. Missing route: POST ${API_ENDPOINTS.USER.PROFILE}/avatar`,
     );
-    return response.data;
   }
 }
 

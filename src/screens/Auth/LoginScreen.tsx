@@ -106,6 +106,14 @@ const LoginScreen = ({ navigation }: LoginScreenProps) => {
             style={styles.signInButton}
           />
 
+          <Button
+            title="Create Account"
+            variant="outline"
+            size="lg"
+            onPress={() => navigation.navigate('Register')}
+            style={styles.createAccountButton}
+          />
+
           <View style={styles.dividerContainer}>
             <View style={styles.dividerLine} />
             <Text style={styles.dividerText}>Or continue with</Text>
@@ -164,8 +172,11 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    justifyContent: 'center',
     paddingHorizontal: 24,
+    paddingVertical: 24,
+  },
+  createAccountButton: {
+    marginBottom: 8,
   },
   dividerContainer: {
     alignItems: 'center',

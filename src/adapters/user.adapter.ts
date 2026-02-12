@@ -33,6 +33,7 @@ export class UserAdapter {
         theme: apiUser.preferences?.theme || 'system',
         notifications: apiUser.preferences?.notifications ?? true,
       },
+      deviceId: apiUser.device_id || apiUser.deviceId,
       emailVerified: apiUser.email_verified || apiUser.emailVerified || false,
       phoneVerified: apiUser.phone_verified || apiUser.phoneVerified || false,
       createdAt: apiUser.created_at || apiUser.createdAt,
@@ -65,6 +66,7 @@ export class UserAdapter {
       phone: userDTO.phone,
       date_of_birth: userDTO.dateOfBirth,
       gender: userDTO.gender,
+      device_id: userDTO.deviceId,
       address: userDTO.address
         ? {
             street: userDTO.address.street,

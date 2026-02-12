@@ -1,5 +1,7 @@
 import Config from 'react-native-config';
 
+const DEFAULT_API_BASE_URL = 'http://localhost:3000/api/v1';
+
 interface AppConfig {
   api: {
     baseUrl: string;
@@ -18,7 +20,7 @@ interface AppConfig {
 
 export const config: AppConfig = {
   api: {
-    baseUrl: Config.API_BASE_URL,
+    baseUrl: Config.API_BASE_URL || DEFAULT_API_BASE_URL,
     timeout: Number(Config.API_TIMEOUT) || 30000,
   },
   features: {
