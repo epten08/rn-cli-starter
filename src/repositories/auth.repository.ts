@@ -1,21 +1,30 @@
 import { API_ENDPOINTS } from '@api/api.config';
 import { apiClient } from '@api/apiClient';
 import type { LoginDTO, RegisterDTO, LoginResponseDTO } from '@dto/user.dto';
-import DeviceInfo from 'react-native-device-info';
 
 const UNSUPPORTED_ENDPOINT_ERROR =
   'This API endpoint is not available on the current Express server.';
 
 export class AuthRepository {
+  private async getDeviceId(): Promise<string | undefined> {
+    try {
+      const deviceInfoModule = await import('react-native-device-info');
+      return await deviceInfoModule.default.getUniqueId();
+    } catch {
+      return undefined;
+    }
+  }
+
   private async withDeviceId<T extends object>(
     payload: T,
   ): Promise<T & { deviceId?: string }> {
-    try {
-      const deviceId = await DeviceInfo.getUniqueId();
-      return { ...payload, deviceId };
-    } catch {
+    const deviceId = await this.getDeviceId();
+
+    if (!deviceId) {
       return payload;
     }
+
+    return { ...payload, deviceId };
   }
 
   // user login
