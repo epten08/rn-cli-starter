@@ -1,7 +1,7 @@
 import { useAppSelector } from '@hooks/useRedux';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-import { HomeScreen, NotificationsScreen } from '@screens/Main';
+import { HomeScreen, NotificationsScreen, SettingsScreen } from '@screens/Main';
 import PlaceholderScreen from '@screens/PlaceholderScreen';
 import React from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -132,8 +132,7 @@ const MainNavigator = () => {
       />
       <Stack.Screen
         name="Settings"
-        component={PlaceholderScreen}
-        // component={SettingsScreen}
+        component={SettingsScreen}
         options={{ title: 'Settings' }}
       />
       <Stack.Screen

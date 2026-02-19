@@ -1,9 +1,12 @@
+import { NetworkStatusBar } from '@components/ui/NetworkStatusBar';
+import { Skeleton } from '@components/ui/Skeleton';
+import { ToastProvider } from '@components/ui/Toast';
 import { initI18n } from '@i18n/index';
 import { RootNavigator } from '@navigation/index';
 import { persistor, store } from '@store/index';
 import { Logger } from '@utils/logger';
 import React, { useEffect, useState } from 'react';
-import { StatusBar, StyleSheet, ActivityIndicator, View } from 'react-native';
+import { StatusBar, StyleSheet, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
@@ -38,7 +41,16 @@ const App = () => {
   if (!isI18nInitialized) {
     return (
       <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#0ea5e9" />
+        <View style={styles.loadingCard}>
+          <Skeleton
+            width={64}
+            height={64}
+            borderRadius={16}
+            style={styles.loadingLogo}
+          />
+          <Skeleton width="70%" height={24} style={styles.loadingTitle} />
+          <Skeleton width="45%" height={14} />
+        </View>
       </View>
     );
   }
@@ -48,8 +60,11 @@ const App = () => {
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <SafeAreaProvider>
-            <StatusBar barStyle="dark-content" backgroundColor="#FFFFFF" />
-            <RootNavigator />
+            <ToastProvider>
+              <StatusBar barStyle="dark-content" backgroundColor="#FFFFFF" />
+              <NetworkStatusBar />
+              <RootNavigator />
+            </ToastProvider>
           </SafeAreaProvider>
         </PersistGate>
       </Provider>
@@ -66,6 +81,20 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     flex: 1,
     justifyContent: 'center',
+  },
+  loadingCard: {
+    alignItems: 'center',
+    backgroundColor: '#ffffff',
+    borderRadius: 20,
+    minWidth: 260,
+    paddingHorizontal: 24,
+    paddingVertical: 28,
+  },
+  loadingLogo: {
+    marginBottom: 18,
+  },
+  loadingTitle: {
+    marginBottom: 12,
   },
 });
 

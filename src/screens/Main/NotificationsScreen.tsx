@@ -1,5 +1,6 @@
 import { Button } from '@components/ui/Button';
 import { Screen } from '@components/ui/Screen';
+import { Skeleton } from '@components/ui/Skeleton';
 import { useNotifications } from '@hooks/useNotifications';
 import { useTranslation } from '@hooks/useTranslation';
 import React, { useMemo } from 'react';
@@ -51,6 +52,7 @@ const formatTime = (dateValue: string) => {
 const NotificationsScreen = () => {
   const { t } = useTranslation();
   const {
+    isLoading,
     notifications,
     unreadCount,
     notificationsEnabled,
@@ -191,6 +193,86 @@ const NotificationsScreen = () => {
       </TouchableOpacity>
     );
   };
+
+  if (isLoading) {
+    return (
+      <Screen safeArea={false} statusBarStyle="light-content">
+        <ScrollView
+          style={styles.container}
+          contentContainerStyle={styles.content}
+        >
+          <View style={styles.headerBackground}>
+            <View style={styles.blob1} />
+            <View style={styles.blob2} />
+          </View>
+
+          <View style={styles.headerContent}>
+            <Skeleton
+              width={180}
+              height={30}
+              style={styles.skeletonSpacingMedium}
+            />
+            <Skeleton width={220} height={14} />
+          </View>
+
+          <View style={styles.mainContent}>
+            <View style={styles.preferencesCard}>
+              <View style={styles.preferenceHeader}>
+                <View style={styles.preferenceLabelContainer}>
+                  <Skeleton
+                    width={170}
+                    height={16}
+                    style={styles.skeletonSpacingSmall}
+                  />
+                  <Skeleton width={190} height={12} />
+                </View>
+                <Skeleton width={52} height={30} borderRadius={18} />
+              </View>
+            </View>
+
+            <View style={styles.actionsRow}>
+              <Skeleton width={150} height={34} borderRadius={10} />
+              <Skeleton width={120} height={34} borderRadius={10} />
+            </View>
+
+            <View style={styles.sectionContainer}>
+              <Skeleton
+                width={90}
+                height={14}
+                style={styles.sectionTitleSkeleton}
+              />
+              {[0, 1, 2].map(index => (
+                <View
+                  key={`notification-skeleton-${index}`}
+                  style={styles.notificationItem}
+                >
+                  <Skeleton
+                    variant="circle"
+                    width={40}
+                    height={40}
+                    style={styles.notificationSkeletonIcon}
+                  />
+                  <View style={styles.notificationTextContainer}>
+                    <Skeleton
+                      width="72%"
+                      height={16}
+                      style={styles.skeletonSpacingSmall}
+                    />
+                    <Skeleton
+                      width="88%"
+                      height={12}
+                      style={styles.skeletonSpacingSmall}
+                    />
+                    <Skeleton width={64} height={10} />
+                  </View>
+                </View>
+              ))}
+            </View>
+          </View>
+        </ScrollView>
+      </Screen>
+    );
+  }
 
   return (
     <Screen safeArea={false} statusBarStyle="light-content">
@@ -413,6 +495,9 @@ const styles = StyleSheet.create({
   notificationTextContainer: {
     flex: 1,
   },
+  notificationSkeletonIcon: {
+    marginRight: 12,
+  },
   notificationTime: {
     color: '#9ca3af',
     fontSize: 12,
@@ -463,9 +548,18 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     marginBottom: 10,
   },
+  sectionTitleSkeleton: {
+    marginBottom: 10,
+  },
   settingsButton: {
     alignSelf: 'flex-start',
     marginTop: 12,
+  },
+  skeletonSpacingMedium: {
+    marginBottom: 10,
+  },
+  skeletonSpacingSmall: {
+    marginBottom: 8,
   },
   subtitle: {
     color: '#e0f2fe',

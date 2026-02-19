@@ -7,7 +7,7 @@ import {
   setNotificationPermissionStatus,
   setNotificationsEnabled,
 } from '@store/slices/app.slice';
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { AppState } from 'react-native';
 
 import type {
@@ -34,6 +34,7 @@ const createNotificationId = () =>
 
 export const useNotifications = () => {
   const dispatch = useAppDispatch();
+  const [isLoading, setIsLoading] = useState(true);
   const { enabled, badge, items, permissionStatus } = useAppSelector(
     state => state.app.notifications,
   );
@@ -48,11 +49,15 @@ export const useNotifications = () => {
   );
 
   const refreshPermissionStatus = useCallback(async () => {
-    const status = await notificationService.getPermissionStatus();
-    dispatch(setNotificationPermissionStatus(status));
+    try {
+      const status = await notificationService.getPermissionStatus();
+      dispatch(setNotificationPermissionStatus(status));
 
-    if (status !== 'granted' && enabled) {
-      dispatch(setNotificationsEnabled(false));
+      if (status !== 'granted' && enabled) {
+        dispatch(setNotificationsEnabled(false));
+      }
+    } finally {
+      setIsLoading(false);
     }
   }, [dispatch, enabled]);
 
@@ -143,6 +148,7 @@ export const useNotifications = () => {
   }, [refreshPermissionStatus]);
 
   return {
+    isLoading,
     notifications,
     unreadCount: badge,
     notificationsEnabled: enabled,

@@ -1,3 +1,4 @@
+import { AuthScreenSkeleton } from '@components/common/AuthScreenSkeleton';
 import { Button } from '@components/ui/Button';
 import { Input } from '@components/ui/Input';
 import { Screen } from '@components/ui/Screen';
@@ -55,6 +56,14 @@ const SignUpScreen = ({ navigation }: RegisterScreenProps) => {
       Alert.alert('Error', registerResult.error || 'Registration failed');
     }
   };
+
+  if (isLoading) {
+    return (
+      <Screen scrollable safeArea={true}>
+        <AuthScreenSkeleton fieldCount={4} compactHeader={true} />
+      </Screen>
+    );
+  }
 
   return (
     <Screen scrollable safeArea={true}>

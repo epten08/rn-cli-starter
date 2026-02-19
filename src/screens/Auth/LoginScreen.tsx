@@ -1,3 +1,4 @@
+import { AuthScreenSkeleton } from '@components/common/AuthScreenSkeleton';
 import { Button } from '@components/ui/Button';
 import { Input } from '@components/ui/Input';
 import { Screen } from '@components/ui/Screen';
@@ -37,6 +38,20 @@ const LoginScreen = ({ navigation }: LoginScreenProps) => {
       );
     }
   };
+
+  if (isLoading) {
+    return (
+      <Screen scrollable safeArea={true}>
+        <AuthScreenSkeleton
+          fieldCount={2}
+          showForgotLink={true}
+          showSecondaryButton={true}
+          showSocialButtons={true}
+          showGuestButton={true}
+        />
+      </Screen>
+    );
+  }
 
   return (
     <Screen scrollable safeArea={true}>

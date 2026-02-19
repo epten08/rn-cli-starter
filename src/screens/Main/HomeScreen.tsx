@@ -1,5 +1,6 @@
 import { Button } from '@components/ui/Button';
 import { Screen } from '@components/ui/Screen';
+import { Skeleton } from '@components/ui/Skeleton';
 import { useAuth } from '@hooks/useAuth';
 import { useTranslation } from '@hooks/useTranslation';
 import React from 'react';
@@ -17,7 +18,7 @@ import type { HomeScreenProps } from '../../types/navigation.types';
 
 const HomeScreen = ({ navigation }: HomeScreenProps) => {
   const { t } = useTranslation();
-  const { user, isGuest, logout } = useAuth();
+  const { user, isGuest, logout, isLoading } = useAuth();
 
   const handleLogout = async () => {
     Alert.alert('Logout', 'Are you sure you want to logout?', [
@@ -37,6 +38,94 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
       },
     ]);
   };
+
+  if (isLoading) {
+    return (
+      <Screen safeArea={false} statusBarStyle="light-content">
+        <ScrollView
+          style={styles.container}
+          contentContainerStyle={styles.contentContainer}
+        >
+          <View style={styles.headerBackground}>
+            <View style={styles.blob1} />
+            <View style={styles.blob2} />
+          </View>
+
+          <View style={styles.headerContent}>
+            <View style={styles.headerSkeletonBlock}>
+              <Skeleton
+                width={110}
+                height={14}
+                style={styles.skeletonSpacingSmall}
+              />
+              <Skeleton width={200} height={26} />
+            </View>
+            <Skeleton variant="circle" width={48} height={48} />
+          </View>
+
+          <View style={styles.mainContent}>
+            <View style={styles.statsContainer}>
+              <View style={styles.statItem}>
+                <Skeleton
+                  width={72}
+                  height={18}
+                  style={styles.skeletonSpacingSmall}
+                />
+                <Skeleton width={54} height={12} />
+              </View>
+              <View style={styles.statDivider} />
+              <View style={styles.statItem}>
+                <Skeleton
+                  width={72}
+                  height={18}
+                  style={styles.skeletonSpacingSmall}
+                />
+                <Skeleton width={54} height={12} />
+              </View>
+            </View>
+
+            <Skeleton
+              width={140}
+              height={22}
+              style={styles.sectionTitleSkeleton}
+            />
+            <View style={styles.actionsGrid}>
+              {[0, 1, 2, 3].map(index => (
+                <View
+                  key={`home-action-skeleton-${index}`}
+                  style={styles.actionCard}
+                >
+                  <Skeleton
+                    width={48}
+                    height={48}
+                    borderRadius={12}
+                    style={styles.actionIconSkeleton}
+                  />
+                  <Skeleton width="66%" height={14} />
+                </View>
+              ))}
+            </View>
+
+            <View style={styles.promoCard}>
+              <View style={styles.promoSkeletonContent}>
+                <Skeleton
+                  width={110}
+                  height={20}
+                  style={styles.skeletonSpacingSmall}
+                />
+                <Skeleton width={150} height={12} />
+              </View>
+              <Skeleton width={100} height={34} borderRadius={10} />
+            </View>
+
+            <View style={styles.logoutContainer}>
+              <Skeleton width="100%" height={48} borderRadius={12} />
+            </View>
+          </View>
+        </ScrollView>
+      </Screen>
+    );
+  }
 
   return (
     <Screen safeArea={false} statusBarStyle="light-content">
@@ -172,8 +261,8 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
                 <Icon name="log-out-outline" size={20} color="#ef4444" />
               }
               onPress={handleLogout}
-              textStyle={{ color: '#ef4444' }}
-              style={{ borderColor: '#fee2e2' }}
+              textStyle={styles.logoutButtonText}
+              style={styles.logoutButton}
             />
           </View>
         </View>
@@ -247,6 +336,9 @@ const styles = StyleSheet.create({
     paddingBottom: 40,
   },
   greenIconBg: { backgroundColor: '#d1fae5' },
+  headerSkeletonBlock: {
+    gap: 8,
+  },
   greetingText: {
     color: '#bae6fd', // primary-200
     fontSize: 14,
@@ -285,6 +377,12 @@ const styles = StyleSheet.create({
   logoutContainer: {
     marginBottom: 40,
   },
+  logoutButton: {
+    borderColor: '#fee2e2',
+  },
+  logoutButtonText: {
+    color: '#ef4444',
+  },
   mainContent: {
     paddingHorizontal: 24,
     zIndex: 1,
@@ -313,6 +411,16 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   purpleIconBg: { backgroundColor: '#f3e8ff' },
+  sectionTitleSkeleton: {
+    marginBottom: 16,
+  },
+  promoSkeletonContent: {
+    flex: 1,
+    marginRight: 16,
+  },
+  actionIconSkeleton: {
+    marginBottom: 12,
+  },
   sectionTitle: {
     color: '#111827',
     fontSize: 18,
@@ -353,6 +461,9 @@ const styles = StyleSheet.create({
   },
   upgradeButton: {
     minWidth: 100,
+  },
+  skeletonSpacingSmall: {
+    marginBottom: 6,
   },
   userText: {
     color: '#ffffff',

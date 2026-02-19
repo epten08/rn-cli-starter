@@ -1,11 +1,12 @@
 import ErrorBoundary from '@components/ErrorBoundary';
+import { Skeleton } from '@components/ui/Skeleton';
 import { useOnboarding } from '@hooks/useOnboarding';
 import { useAppSelector } from '@hooks/useRedux';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { OnboardingScreen } from '@screens/Onboarding';
 import React from 'react';
-import { View, ActivityIndicator, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 
 import type { RootStackParamList } from '../types/navigation.types';
 
@@ -23,7 +24,11 @@ const RootNavigator = () => {
   if (isLoading) {
     return (
       <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#0ea5e9" />
+        <View style={styles.loadingContent}>
+          <Skeleton width="62%" height={24} style={styles.loadingTitle} />
+          <Skeleton width="78%" height={14} style={styles.loadingLine} />
+          <Skeleton width="70%" height={14} />
+        </View>
       </View>
     );
   }
@@ -60,5 +65,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     flex: 1,
     justifyContent: 'center',
+  },
+  loadingContent: {
+    alignItems: 'center',
+    width: '100%',
+  },
+  loadingLine: {
+    marginBottom: 10,
+  },
+  loadingTitle: {
+    marginBottom: 14,
   },
 });

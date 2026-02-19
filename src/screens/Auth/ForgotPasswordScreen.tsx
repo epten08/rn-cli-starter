@@ -1,3 +1,4 @@
+import { AuthScreenSkeleton } from '@components/common/AuthScreenSkeleton';
 import { Button } from '@components/ui/Button';
 import { Input } from '@components/ui/Input';
 import { Screen } from '@components/ui/Screen';
@@ -14,7 +15,9 @@ import type { ForgotPasswordScreenProps } from '../../types/navigation.types';
 const ForgotPasswordScreen = ({ navigation }: ForgotPasswordScreenProps) => {
   const { forgotPassword, isLoading, error } = useAuth();
   const [email, setEmail] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const isScreenLoading = isLoading || isSubmitting;
 
   const handleForgotPassword = async () => {
     const result = validateForm(forgotPasswordSchema, { email });
@@ -24,23 +27,36 @@ const ForgotPasswordScreen = ({ navigation }: ForgotPasswordScreenProps) => {
     }
 
     setErrors({});
+    setIsSubmitting(true);
 
-    const forgotPasswordResult = await forgotPassword(email);
+    try {
+      const forgotPasswordResult = await forgotPassword(email);
 
-    if (forgotPasswordResult.success) {
-      Alert.alert(
-        'Check your email',
-        forgotPasswordResult.message ||
-          'If an account exists for this email, you will receive reset instructions shortly.',
-        [{ text: 'OK', onPress: () => navigation.navigate('Login') }],
-      );
-    } else {
-      Alert.alert(
-        'Error',
-        forgotPasswordResult.error || 'Failed to send reset link',
-      );
+      if (forgotPasswordResult.success) {
+        Alert.alert(
+          'Check your email',
+          forgotPasswordResult.message ||
+            'If an account exists for this email, you will receive reset instructions shortly.',
+          [{ text: 'OK', onPress: () => navigation.navigate('Login') }],
+        );
+      } else {
+        Alert.alert(
+          'Error',
+          forgotPasswordResult.error || 'Failed to send reset link',
+        );
+      }
+    } finally {
+      setIsSubmitting(false);
     }
   };
+
+  if (isScreenLoading) {
+    return (
+      <Screen scrollable safeArea={true}>
+        <AuthScreenSkeleton fieldCount={1} compactHeader={true} />
+      </Screen>
+    );
+  }
 
   return (
     <Screen scrollable safeArea={true}>
@@ -70,14 +86,14 @@ const ForgotPasswordScreen = ({ navigation }: ForgotPasswordScreenProps) => {
             autoCapitalize="none"
             keyboardType="email-address"
             error={errors.email}
-            editable={!isLoading}
+            editable={!isScreenLoading}
           />
 
           <View style={styles.buttonContainer}>
             <Button
               title="Send Reset Link"
               onPress={handleForgotPassword}
-              isLoading={isLoading}
+              isLoading={isScreenLoading}
               size="lg"
               style={styles.submitButton}
             />
