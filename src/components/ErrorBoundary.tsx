@@ -1,3 +1,4 @@
+import { captureError } from '@services/sentry.service';
 import { Logger } from '@utils/logger';
 import type { ErrorInfo, ReactNode } from 'react';
 import React, { Component } from 'react';
@@ -50,7 +51,10 @@ class ErrorBoundary extends Component<Props, State> {
       errorInfo,
     });
 
-    // log to sentry here
+    captureError(error, {
+      tags: { source: 'ErrorBoundary' },
+      extra: { componentStack: errorInfo.componentStack },
+    });
   }
 
   handleReset = () => {

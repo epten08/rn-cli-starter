@@ -2,24 +2,39 @@ import ErrorBoundary from '@components/ErrorBoundary';
 import { Skeleton } from '@components/ui/Skeleton';
 import { useOnboarding } from '@hooks/useOnboarding';
 import { useAppSelector } from '@hooks/useRedux';
+import { useRemoteNotifications } from '@hooks/useRemoteNotifications';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { OnboardingScreen } from '@screens/Onboarding';
-import React from 'react';
+import { setSentryUser } from '@services/sentry.service';
+import React, { useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 
 import type { RootStackParamList } from '../types/navigation.types';
 
 import AuthNavigator from './AuthNavigator';
+import { linking } from './linking';
 import MainNavigator from './MainNavigator';
 import { navigationRef } from './navigationHelpers';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
 const RootNavigator = () => {
-  const { isAuthenticated, isGuest } = useAppSelector(state => state.auth);
+  const { isAuthenticated, isGuest, user } = useAppSelector(
+    state => state.auth,
+  );
   const { isOnboardingComplete, isLoading, completeOnboarding } =
     useOnboarding();
+  useRemoteNotifications();
+
+  useEffect(() => {
+    if (isAuthenticated && user?.id) {
+      setSentryUser({ id: user.id, email: user.email });
+      return;
+    }
+
+    setSentryUser(null);
+  }, [isAuthenticated, user]);
 
   if (isLoading) {
     return (
@@ -35,7 +50,7 @@ const RootNavigator = () => {
 
   return (
     <ErrorBoundary fallback={undefined}>
-      <NavigationContainer ref={navigationRef}>
+      <NavigationContainer ref={navigationRef} linking={linking}>
         <Stack.Navigator
           screenOptions={{
             headerShown: false,

@@ -14,3 +14,12 @@ export interface AppNotification {
   read: boolean;
   type: NotificationType;
 }
+
+export interface RemotePushMessage {
+  id: string;
+  title: string;
+  body: string;
+  type: NotificationType;
+  sentTime: number;
+  data: Record<string, string>;
+}

@@ -3,6 +3,7 @@ import { Skeleton } from '@components/ui/Skeleton';
 import { ToastProvider } from '@components/ui/Toast';
 import { initI18n } from '@i18n/index';
 import { RootNavigator } from '@navigation/index';
+import { captureError, initializeSentry } from '@services/sentry.service';
 import { persistor, store } from '@store/index';
 import { Logger } from '@utils/logger';
 import React, { useEffect, useState } from 'react';
@@ -19,7 +20,7 @@ const App = () => {
     const initialize = async () => {
       try {
         Logger.info('App: Initializing...');
-        // initialise sentry here
+        initializeSentry();
 
         await initI18n();
         setIsI18nInitialized(true);
@@ -27,6 +28,7 @@ const App = () => {
         Logger.info('App: initialized successfully');
       } catch (error) {
         Logger.error('App: Initialization failed', error);
+        captureError(error, { tags: { source: 'AppInitialization' } });
         // Still set to true to show app with fallback language
         setIsI18nInitialized(true);
       }

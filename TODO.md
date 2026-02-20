@@ -8,10 +8,10 @@
 
 ### Critical Missing Features
 
-- [ ] **Deep Linking** - App links, universal links, navigation from URLs
-- [ ] **Crash Reporting** - Integrate Sentry or Firebase Crashlytics
+- [x] **Deep Linking** - App links, universal links, navigation from URLs
+- [x] **Crash Reporting** - Integrate Sentry or Firebase Crashlytics
 - [ ] **Analytics** - User behavior tracking (Firebase Analytics, Mixpanel, etc.)
-- [ ] **Remote Push Notifications** - Firebase Cloud Messaging setup
+- [x] **Remote Push Notifications** - Firebase Cloud Messaging setup
 - [ ] **Offline Support** - Data sync, offline queue, optimistic updates
 - [ ] **Splash Screen** - Configured launch screen for iOS/Android
 

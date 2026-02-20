@@ -43,12 +43,10 @@ describe('AuthService', () => {
         createdAt: '2024-01-01',
         updatedAt: '2024-01-01',
       },
-      tokens: {
-        accessToken: 'access-token-123',
-        refreshToken: 'refresh-token-456',
-        expiresIn: 3600,
-        tokenType: 'Bearer',
-      },
+      accessToken: 'access-token-123',
+      refreshToken: 'refresh-token-456',
+      expiresIn: 3600,
+      tokenType: 'Bearer',
     };
 
     it('should login successfully and store tokens', async () => {
@@ -100,12 +98,10 @@ describe('AuthService', () => {
         createdAt: '2024-01-01',
         updatedAt: '2024-01-01',
       },
-      tokens: {
-        accessToken: 'new-access-token',
-        refreshToken: 'new-refresh-token',
-        expiresIn: 3600,
-        tokenType: 'Bearer',
-      },
+      accessToken: 'new-access-token',
+      refreshToken: 'new-refresh-token',
+      expiresIn: 3600,
+      tokenType: 'Bearer',
     };
 
     it('should register successfully and store tokens', async () => {

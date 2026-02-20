@@ -4,9 +4,11 @@ import {
   clearAllNotifications,
   markAllNotificationsAsRead,
   markNotificationAsRead,
+  setNotificationDeviceToken,
   setNotificationPermissionStatus,
   setNotificationsEnabled,
 } from '@store/slices/app.slice';
+import { Logger } from '@utils/logger';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { AppState } from 'react-native';
 
@@ -19,6 +21,8 @@ import type {
 import { useAppDispatch, useAppSelector } from './useRedux';
 
 interface CreateNotificationParams {
+  id?: string;
+  createdAt?: string;
   title: string;
   body: string;
   type?: NotificationType;
@@ -35,9 +39,8 @@ const createNotificationId = () =>
 export const useNotifications = () => {
   const dispatch = useAppDispatch();
   const [isLoading, setIsLoading] = useState(true);
-  const { enabled, badge, items, permissionStatus } = useAppSelector(
-    state => state.app.notifications,
-  );
+  const { enabled, badge, items, permissionStatus, deviceToken } =
+    useAppSelector(state => state.app.notifications);
 
   const notifications = useMemo(
     () =>
@@ -48,10 +51,33 @@ export const useNotifications = () => {
     [items],
   );
 
+  const registerDeviceToken = useCallback(async () => {
+    try {
+      const token = await notificationService.getDeviceToken();
+      dispatch(setNotificationDeviceToken(token));
+      return token;
+    } catch (error) {
+      Logger.warn('Failed to register notification token', error);
+      dispatch(setNotificationDeviceToken(null));
+      return null;
+    }
+  }, [dispatch]);
+
+  const clearDeviceToken = useCallback(async () => {
+    await notificationService.deleteDeviceToken();
+    dispatch(setNotificationDeviceToken(null));
+  }, [dispatch]);
+
   const refreshPermissionStatus = useCallback(async () => {
     try {
       const status = await notificationService.getPermissionStatus();
       dispatch(setNotificationPermissionStatus(status));
+
+      if (status === 'granted') {
+        await registerDeviceToken();
+      } else {
+        await clearDeviceToken();
+      }
 
       if (status !== 'granted' && enabled) {
         dispatch(setNotificationsEnabled(false));
@@ -59,24 +85,33 @@ export const useNotifications = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [dispatch, enabled]);
+  }, [clearDeviceToken, dispatch, enabled, registerDeviceToken]);
 
   const requestPermission = useCallback(async () => {
     const status = await notificationService.requestPermission();
     dispatch(setNotificationPermissionStatus(status));
     dispatch(setNotificationsEnabled(status === 'granted'));
+
+    if (status === 'granted') {
+      await registerDeviceToken();
+    } else {
+      await clearDeviceToken();
+    }
+
     return status;
-  }, [dispatch]);
+  }, [clearDeviceToken, dispatch, registerDeviceToken]);
 
   const toggleNotifications = useCallback(
     async (nextEnabled: boolean): Promise<ToggleNotificationsResult> => {
       if (!nextEnabled) {
         dispatch(setNotificationsEnabled(false));
+        await clearDeviceToken();
         return { enabled: false, permissionStatus };
       }
 
       if (permissionStatus === 'granted') {
         dispatch(setNotificationsEnabled(true));
+        await registerDeviceToken();
         return { enabled: true, permissionStatus: 'granted' };
       }
 
@@ -86,18 +121,30 @@ export const useNotifications = () => {
         permissionStatus: updatedStatus,
       };
     },
-    [dispatch, permissionStatus, requestPermission],
+    [
+      clearDeviceToken,
+      dispatch,
+      permissionStatus,
+      registerDeviceToken,
+      requestPermission,
+    ],
   );
 
   const createNotification = useCallback(
-    ({ title, body, type = 'system' }: CreateNotificationParams) => {
+    ({
+      id,
+      createdAt,
+      title,
+      body,
+      type = 'system',
+    }: CreateNotificationParams) => {
       const notification: AppNotification = {
-        id: createNotificationId(),
+        id: id || createNotificationId(),
         title,
         body,
         type,
         read: false,
-        createdAt: new Date().toISOString(),
+        createdAt: createdAt || new Date().toISOString(),
       };
 
       dispatch(addNotification(notification));
@@ -151,6 +198,7 @@ export const useNotifications = () => {
     isLoading,
     notifications,
     unreadCount: badge,
+    deviceToken,
     notificationsEnabled: enabled,
     permissionStatus,
     refreshPermissionStatus,

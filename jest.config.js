@@ -24,6 +24,11 @@ module.exports = {
     '^react-native-safe-area-context$':
       '<rootDir>/__mocks__/react-native-safe-area-context.js',
     '^react-native-config$': '<rootDir>/__mocks__/react-native-config.js',
+    '^@sentry/react-native$': '<rootDir>/__mocks__/sentry-react-native.js',
+    '^@react-native-firebase/app$':
+      '<rootDir>/__mocks__/react-native-firebase-app.js',
+    '^@react-native-firebase/messaging$':
+      '<rootDir>/__mocks__/react-native-firebase-messaging.js',
     '^react-native-vector-icons/(.*)$':
       '<rootDir>/__mocks__/react-native-vector-icons.js',
     '^react-native-encrypted-storage$':

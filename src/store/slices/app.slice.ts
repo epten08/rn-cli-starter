@@ -13,6 +13,7 @@ interface AppState {
   notifications: {
     enabled: boolean;
     badge: number;
+    deviceToken: string | null;
     permissionStatus: NotificationPermissionStatus;
     items: AppNotification[];
   };
@@ -26,6 +27,7 @@ const initialState: AppState = {
   notifications: {
     enabled: true,
     badge: 0,
+    deviceToken: null,
     permissionStatus: 'unknown',
     items: [],
   },
@@ -55,6 +57,12 @@ const appSlice = createSlice({
 
     setNotificationBadge: (state, action: PayloadAction<number>) => {
       state.notifications.badge = action.payload;
+    },
+    setNotificationDeviceToken: (
+      state,
+      action: PayloadAction<string | null>,
+    ) => {
+      state.notifications.deviceToken = action.payload;
     },
     incrementNotificationBadge: state => {
       state.notifications.badge += 1;
@@ -129,6 +137,7 @@ export const {
   setTheme,
   setLanguage,
   setNotificationBadge,
+  setNotificationDeviceToken,
   incrementNotificationBadge,
   clearNotificationBadge,
   setNotificationsEnabled,

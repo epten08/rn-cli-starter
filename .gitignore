@@ -77,3 +77,5 @@ yarn-error.log
 .claude/
 .vscode
 .env
+android/app/google-services.json
+ios/GoogleService-Info.plist

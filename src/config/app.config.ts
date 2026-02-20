@@ -16,7 +16,17 @@ interface AppConfig {
     name: string;
     version: string;
   };
+  sentry: {
+    dsn: string;
+    environment: string;
+    tracesSampleRate: number;
+  };
 }
+
+const rawSentrySampleRate = Number(Config.SENTRY_TRACES_SAMPLE_RATE);
+const sentrySampleRate = Number.isFinite(rawSentrySampleRate)
+  ? rawSentrySampleRate
+  : 0.2;
 
 export const config: AppConfig = {
   api: {
@@ -31,6 +41,12 @@ export const config: AppConfig = {
   app: {
     name: Config.APP_NAME || 'MyApp',
     version: Config.APP_VERSION || '1.0.0',
+  },
+  sentry: {
+    dsn: Config.SENTRY_DSN || '',
+    environment:
+      Config.SENTRY_ENVIRONMENT || (__DEV__ ? 'development' : 'production'),
+    tracesSampleRate: sentrySampleRate,
   },
 };
 

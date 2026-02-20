@@ -27,4 +27,23 @@ module.exports = {
     })),
     event: jest.fn(() => jest.fn()),
   },
+  Linking: {
+    openSettings: jest.fn(() => Promise.resolve()),
+  },
+  PermissionsAndroid: {
+    PERMISSIONS: {
+      POST_NOTIFICATIONS: 'android.permission.POST_NOTIFICATIONS',
+    },
+    RESULTS: {
+      GRANTED: 'granted',
+      DENIED: 'denied',
+    },
+    check: jest.fn(() => Promise.resolve(true)),
+    request: jest.fn(() => Promise.resolve('granted')),
+  },
+  AppState: {
+    addEventListener: jest.fn(() => ({
+      remove: jest.fn(),
+    })),
+  },
 };

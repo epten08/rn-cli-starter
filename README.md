@@ -6,8 +6,10 @@ A production-ready React Native starter template with authentication, navigation
 
 - **Authentication** - Login, Register, Forgot Password with secure token storage
 - **Navigation** - Stack & Tab navigation with React Navigation v7
+- **Remote Push Notifications** - Firebase Cloud Messaging integration
 - **State Management** - Redux Toolkit with persistence
 - **API Client** - Axios with interceptors and token refresh
+- **Crash Reporting** - Sentry integration with environment-based toggles
 - **i18n** - Multi-language support (EN, ES, FR)
 - **UI Components** - Button, Input, Card, Modal, Toast, and more
 - **TypeScript** - Full type safety with strict mode
@@ -390,6 +392,25 @@ navigation.navigate('Profile', { userId: '123' });
 navigation.goBack();
 ```
 
+### Deep Linking
+
+The app supports both custom-scheme and web links:
+
+- `reactnativestarter://`
+- `https://reactnativestarter.app`
+
+Examples:
+
+- `reactnativestarter://login`
+- `reactnativestarter://forgot-password`
+- `reactnativestarter://settings`
+- `https://reactnativestarter.app/notifications`
+
+For production universal links/app links, host these files on your domain:
+
+- iOS: `apple-app-site-association`
+- Android: `/.well-known/assetlinks.json`
+
 ---
 
 ## Testing
@@ -414,6 +435,10 @@ Create a `.env` file in the root directory:
 ```env
 API_BASE_URL=https://api.example.com/v1
 API_TIMEOUT=30000
+SENTRY_DSN=https://examplePublicKey@o0.ingest.sentry.io/0
+SENTRY_ENVIRONMENT=development
+SENTRY_TRACES_SAMPLE_RATE=0.2
+ENABLE_CRASH_REPORTING=false
 ```
 
 Access config values:
@@ -423,6 +448,25 @@ import Config from 'react-native-config';
 
 const apiUrl = Config.API_BASE_URL;
 ```
+
+Set `ENABLE_CRASH_REPORTING=true` when you are ready to send events to Sentry.
+
+## Remote Push Notifications (FCM)
+
+This starter includes Firebase Cloud Messaging handling for:
+
+- Permission checks/requests
+- Device token registration
+- Foreground messages
+- Background/opened notifications
+
+Native setup required:
+
+1. Add Android Firebase config file to `android/app/google-services.json`.
+2. Add iOS Firebase config file to `ios/GoogleService-Info.plist`.
+3. iOS: Enable `Push Notifications` capability in Xcode target settings.
+4. iOS: Enable `Background Modes > Remote notifications` in Xcode.
+5. Run iOS pods again after installing dependencies: `npm run pod:install`.
 
 ---
 
